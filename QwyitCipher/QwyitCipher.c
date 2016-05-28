@@ -53,6 +53,7 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
         #endif
 }
 
+
 void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
@@ -90,10 +91,30 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
                 lowerIndex++;
         }
         #ifdef QwyitCipher_print
-        printf("extract\n");
+        printf("Extract\n");
         PrintArray(alphabet, LENGTH);
         PrintArray(key, LENGTH);
         PrintArray(result, LENGTH);
         #endif
+}
 
+void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t * a2, uint8_t *result)
+{
+
+        Extract(key1, key2, a1);
+        Extract(key2, key1, a2);
+        ModEncrypt(a1, a2, result);
+	
+	#ifdef QwyitCipher_print
+        printf("Combine\n");
+        PrintArray(key1, LENGTH);
+        PrintArray(key2, LENGTH);
+        PrintArray(result, LENGTH);
+        #endif
+
+}
+
+void OneWayCut(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
+{
+	//TODO implement OneWayCut	
 }
