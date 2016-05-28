@@ -8,8 +8,8 @@
 
 #include <stdint.h>
 
-#ifndef QWYITCIPHER_H_
-#define QWYITCIPHER_H_
+#ifndef PRIMATIVEQ_H_
+#define PRIMATIVEQ_H_
 
 void ModEncrypt(const uint8_t * k1, const uint8_t * k2, uint8_t * r);
 
