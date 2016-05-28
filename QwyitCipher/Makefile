@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = Qwyit.h Util_IO.h
-OBJ = main.o #Qwyit.o Util_IO.o
+DEPS = QwyitCipher.h Util_IO.h
+OBJ = main.o #QwyitCipher.o Util_IO.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
