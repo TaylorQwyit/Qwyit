@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "DefineQ.h"
+#include "../DefineQ.h"
 #include "PrimativeQ.h"
 #include "IO.h"
 

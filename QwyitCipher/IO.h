@@ -6,7 +6,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
 void PrintArray(const uint8_t * a, const uint32_t len);
 
 #endif

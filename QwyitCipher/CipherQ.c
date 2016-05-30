@@ -1,5 +1,5 @@
+#include "../DefineQ.h"
 #include "PrimativeQ.h"
-#include "DefineQ.h"
 #include "CipherQ.h"
 #include "IO.h"
 

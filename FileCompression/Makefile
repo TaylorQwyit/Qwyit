@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = ../QwyitCipher/PrimativeQ.h ../QwyitCipher/CipherQ.h ../QwyitCipher/IO.h CompressTree.h
+DEPS = ../QwyitCipher/PrimativeQ.h ../QwyitCipher/CipherQ.h ../QwyitCipher/IO.h ../DefineQ.h CompressTree.h
 OBJ = main.o CompressTree.o ../QwyitCipher/PrimativeQ.o ../QwyitCipher/CipherQ.o ../QwyitCipher/IO.o
 
 %.o: %.c $(DEPS)
