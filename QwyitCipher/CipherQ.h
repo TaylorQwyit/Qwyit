@@ -5,23 +5,7 @@
 #include "PrimativeQ.h"
 #include "IO.h"
 
-typedef struct
-{
-        uint8_t * orA;
-        uint8_t * orB;
-        uint8_t * wA;
-        uint8_t * wB;
-
-        uint8_t * EK;
-        uint8_t * QK;
-
-	uint8_t ** OR2;
-	uint8_t ** OR3;
-	uint8_t ** W1;
-	uint8_t ** W2;
-
-	uint16_t index;
-}Qstate;
+typedef struct _Qstate Qstate;
 
 void GetNonce(uint8_t * nonce, const uint32_t seed);
 
