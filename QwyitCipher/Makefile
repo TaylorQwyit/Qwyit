@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
 DEPS = PrimativeQ.h CipherQ.h IO.h
-OBJ = main.o PrimativeQ.o IO.o
+OBJ = main.o PrimativeQ.o CipherQ.o IO.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
