@@ -13,9 +13,9 @@
 int main(void)
 {
 
-	printf("Main\n");
+	printf("QwyitCipher: main\n");
 	Qstate state;
-	//InitQstate(0, 0);
+	InitQstate(&state, 0);
 
 /*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);

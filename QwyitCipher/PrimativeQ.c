@@ -22,7 +22,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                 }
         }
 
-	#ifdef QwyitCipher_print
+	#ifdef Primative_p	
         printf("ModEncrypt\n");
         PrintArray(key1, LENGTH);
         PrintArray(key2, LENGTH);
@@ -49,7 +49,7 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                 }
         }
 
-        #ifdef Cipher_print
+	#ifdef Primative_p	
         printf("ModDecrypt\n");
         PrintArray(key1, LENGTH);
         PrintArray(key2, LENGTH);
@@ -94,7 +94,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
                 lowerIndex++;
         }
-        #ifdef QwyitCipher_print
+	#ifdef Primative_p	
         printf("Extract\n");
         PrintArray(alphabet, LENGTH);
         PrintArray(key, LENGTH);
@@ -108,8 +108,8 @@ void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t *
         Extract(key1, key2, a1);
         Extract(key2, key1, a2);
         ModEncrypt(a1, a2, result);
-	
-	#ifdef QwyitCipher_print
+
+	#ifdef Primative_p	
         printf("Combine\n");
         PrintArray(key1, LENGTH);
         PrintArray(key2, LENGTH);

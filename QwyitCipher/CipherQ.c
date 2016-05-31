@@ -10,25 +10,6 @@
 #include <stdio.h>
 #include <string.h>
 
-/*
-typedef struct
-{
-        uint8_t * orA;
-        uint8_t * orB;
-        uint8_t * wA;
-        uint8_t * wB;
-
-        uint8_t * EK;
-        uint8_t * QK;
-
-        uint8_t ** OR2;
-        uint8_t ** OR3;
-        uint8_t ** W1;
-        uint8_t ** W2;
-
-        uint16_t index;
-}Qstate;
-*/
 void GetNonce(uint8_t * nonce, const uint32_t seed)
 {
 
@@ -49,7 +30,7 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
         uint8_t * a2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 
 	#ifdef Round_p
-        printf("Round\nor:");
+        printf("Round      OR:");
         PrintArray(OR, LENGTH);
 	#endif
 
@@ -63,9 +44,9 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
 	//ModEncrypt(EK, OR, EK);
 	
 	#ifdef Round_p
-        printf("next_or:");
+        printf(" round NextOR:");
         PrintArray(Next_OR, LENGTH);
-        printf("w:");
+        printf(" round      W:");
         PrintArray(Next_W, LENGTH);
 	#endif
 
