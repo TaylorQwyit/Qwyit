@@ -1,8 +1,6 @@
 #ifndef CIPHERQ_H_
 #define CIPHERQ_H_
 
-//typedef struct _Qstate Qstate;
-
 typedef struct
 {
         uint8_t * orA;

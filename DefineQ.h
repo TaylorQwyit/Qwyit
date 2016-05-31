@@ -1,9 +1,10 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 32
-#define WORD 8
-#define WORDMASK 0x77
+#define LENGTH 8
+
+#define WORD 64
+#define MOD 4
 
 #define MATCHES 1
 #define ITERATIONSIZE 1
@@ -14,6 +15,9 @@
 #define BLOCKSIZE 1
 #define BLOCKTRIALS 32
 
+#define WORDMASK (1 << WORD)-1
+#define MODMASK 0x77
+
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)
 #define HASHMASK ( (1 << HASHSIZE) -1)
@@ -21,7 +25,7 @@
 
 
 //#define Round_p
-#define Iteration_p
+//#define Iteration_p
 
 //#define Primative_p
 

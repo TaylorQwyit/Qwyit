@@ -18,4 +18,6 @@ void Extract(const uint8_t * k, const uint8_t * a, uint8_t *r);
 
 void OneWayCut(const uint8_t * k1, const uint8_t * k2, uint8_t * r);
 
+void * WORDSIZE;
+
 #endif

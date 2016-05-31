@@ -66,8 +66,8 @@ void InitQstate(Qstate *s, uint32_t seed)
 	s->EK  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
         s->QK  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 
-	GetNonce(s->EK, 7);
-	GetNonce(s->QK, 8);
+	GetNonce(s->EK, 23);
+	GetNonce(s->QK, 108);
 	GetNonce(s->orB, seed);
 
 	Round(s->EK, s->QK, s->orB, s->wA, s->orA);

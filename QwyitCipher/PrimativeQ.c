@@ -7,21 +7,39 @@
 
 void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
+
+	const void * K1 = key1;
+	const void * K2 = key2;
+	const void * r = result;
 	
-	uint8_t i = 0;
+	uint32_t i = 0;
 	for(i; i < LENGTH; i++)
 	{
-                uint8_t carry = (key1[i] & key2[i] & WORDMASK); 
+                uint64_t carry = ( *(uint8_t *)(K1+i) & key2[i] & MODMASK); 
                 result[i] = key1[i] ^ key2[i];
                 carry = carry<<1;
                 while(carry != 0)
                 {
-                        uint8_t temp_char = (result[i] & carry & WORDMASK);
+                        uint64_t temp_char = (result[i] & carry & MODMASK);
                         result[i] = result[i] ^ carry;
                         carry = temp_char << 1;
                 }
         }
-
+	/*
+	uint32_t i = 0;
+	for(i; i < LENGTH; i++)
+	{
+                uint64_t carry = (key1[i] & key2[i] & MODMASK); 
+                result[i] = key1[i] ^ key2[i];
+                carry = carry<<1;
+                while(carry != 0)
+                {
+                        uint64_t temp_char = (result[i] & carry & MODMASK);
+                        result[i] = result[i] ^ carry;
+                        carry = temp_char << 1;
+                }
+        }
+	*/
 	#ifdef Primative_p	
         printf("ModEncrypt\n");
         PrintArray(key1, LENGTH);
@@ -35,15 +53,15 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
 
-        uint8_t i = 0;
+        uint32_t i = 0;
         for(i; i < LENGTH; i++)
         {
-                uint8_t carry = (~key1[i] & key2[i] & WORDMASK);
+                uint8_t carry = (~key1[i] & key2[i] & MODMASK);
                 result[i] = key1[i] ^ key2[i];
                 carry = carry<<1;
                 while(carry != 0)
                 {
-                        uint8_t temp_char = (~result[i] & carry & WORDMASK);
+                        uint8_t temp_char = (~result[i] & carry & MODMASK);
                         result[i] = result[i] ^ carry;
                         carry = temp_char << 1;
                 }
