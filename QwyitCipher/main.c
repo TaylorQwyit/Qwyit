@@ -16,6 +16,9 @@ int main(void)
 	printf("QwyitCipher: main\n");
 	Qstate state;
 	InitQstate(&state, 0);
+	printf("Iterating Qstate\n");
+	Iteration(&state);
+	Iteration(&state);
 
 /*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);

@@ -19,6 +19,7 @@ typedef struct
         uint8_t ** W2;
 
         uint16_t index;
+        uint16_t iteration;
 } Qstate;
 
 void GetNonce(uint8_t * nonce, const uint32_t seed);

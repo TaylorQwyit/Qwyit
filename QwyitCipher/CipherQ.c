@@ -78,6 +78,7 @@ void InitQstate(Qstate *s, uint32_t seed)
 	s->W1 = &(s->wA);	
 	s->W2 = &(s->wB);
 	s->index = 0;	
+	s->iteration = 0;	
 }
 
 
@@ -90,6 +91,9 @@ void NewQstate(Qstate * state)
         
 	state->EK  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
         state->QK  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
+	
+	state->index = 0;
+	state->iteration = 0;
 }
 
 void CopyQstate(Qstate * state, Qstate * copy)
@@ -122,16 +126,17 @@ void Iteration(Qstate *s)
 	*s->OR3 = tempOR;
 	
 	s->index = s->index - LENGTH;
+	s->iteration++;
 	
 	#ifdef Iteration_p
-	printf("Iteration:%d\n", s->index);
-	printf("W1:\n");
+	printf("Iteration:%d\n", s->iteration);
+	printf("W1: ");
 	PrintArray(* s->W1, LENGTH);
-	printf("W2:\n");
+	printf("W2: ");
 	PrintArray(* s->W2, LENGTH);
-	printf("OR2:\n");
+	printf("OR2:");
 	PrintArray(* s->OR2, LENGTH);
-	printf("OR3:\n");
+	printf("OR3:");
 	PrintArray(* s->OR3, LENGTH);
 	#endif
 }
