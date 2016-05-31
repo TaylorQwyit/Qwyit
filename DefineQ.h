@@ -27,7 +27,7 @@
 //#define Round_p
 //#define Iteration_p
 
-#define Primative_p
+//#define Primative_p
 
 #include <stdint.h>
 

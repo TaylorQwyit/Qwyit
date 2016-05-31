@@ -12,6 +12,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	const void * K2 = key2;
 	const void * r = result;
 
+
 	uint32_t i = 0;
 	//for(i; i < LENGTH; i++)
 	{
@@ -19,15 +20,15 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                 *(uint64_t *)(r+i) =  *(uint64_t *)(K1+i) ^ *(uint64_t *)(K2+i);
                 carry = carry<<1;
 		
-		printf("\nInitial Carry:%lx\n", carry);
-		PrintArray((uint8_t *) r, LENGTH);
+		//printf("\nInitial Carry:%lx\n", carry);
+		//PrintArray((uint8_t *) r, LENGTH);
                 while(carry != 0)
                 {
                         uint64_t temp_char = (*(uint64_t *)(r+i) & carry & MODMASK);
 			*(uint64_t *)(r+i)=  *(uint64_t *)(r+i) ^ carry;
                         carry = temp_char << 1;
-			printf("loop Carry:%lx\n", carry);
-			PrintArray((uint8_t *) r, LENGTH);
+			//printf("loop Carry:%lx\n", carry);
+			//PrintArray((uint8_t *) r, LENGTH);
 
                 }
         }
@@ -53,7 +54,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 
                 }
         }*/
-	/*
+/*	
 	uint32_t i = 0;
 	for(i; i < LENGTH; i++)
 	{
@@ -67,7 +68,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                         carry = temp_char << 1;
                 }
         }
-	*/
+*/	
 	#ifdef Primative_p	
         printf("ModEncrypt\n");
         PrintArray(key1, LENGTH);

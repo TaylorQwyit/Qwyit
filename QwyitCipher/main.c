@@ -14,9 +14,14 @@ int main(void)
 {
 
 	printf("QwyitCipher: main\n");
-	//Qstate state;
-	//InitQstate(&state, 0);
-	
+	Qstate state;
+	InitQstate(&state, 0);
+	Iteration(&state);
+	PrintArray(*state.W1, LENGTH);
+	Iteration(&state);
+	PrintArray(*state.W1, LENGTH);
+	Iteration(&state);
+	PrintArray(*state.W1, LENGTH);
 
 	uint8_t * k1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 	uint8_t * k2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
@@ -29,8 +34,11 @@ int main(void)
 		k1[i] = i+129*3;
 		k2[i] = + 133;
 	}
-	ModEncrypt(k1, k2, result);	
+	
+	unsigned char EK[8] = {  0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
+	//ModEncrypt(k1, EK, result);	
 
+	
 /*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * W  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
