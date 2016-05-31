@@ -1,16 +1,19 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
 
 #include "../DefineQ.h"
-//#include "PrimativeQ.h"
+#include "IO.h"
+#include "PrimativeQ.h"
 //#include "CipherQ.h"
 
-//#include "IO.h"
+#include <stdio.h>
+
 
 int main(void)
 {
 
+	printf("Main\n");
 	//Qstate state;
 	//InitQstate(0, 0);
 

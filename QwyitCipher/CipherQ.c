@@ -1,7 +1,12 @@
+
+
 #include "../DefineQ.h"
 #include "PrimativeQ.h"
-#include "CipherQ.h"
 #include "IO.h"
+
+#include "CipherQ.h"
+
+#include <stdint.h>
 
 typedef struct
 {

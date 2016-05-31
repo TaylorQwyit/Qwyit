@@ -5,9 +5,6 @@
  *
  */
 
-
-#include <stdint.h>
-
 #ifndef PRIMATIVEQ_H_
 #define PRIMATIVEQ_H_
 

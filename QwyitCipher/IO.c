@@ -1,4 +1,8 @@
+
+#include "../DefineQ.h"
 #include "IO.h"
+
+#include <stdio.h>
 
 void PrintArray(const uint8_t * array, const uint32_t length)
 {

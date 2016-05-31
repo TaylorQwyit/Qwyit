@@ -1,6 +1,5 @@
-#ifndef CIPHERQ_H_
-#define CIPHERQ_H_
-
+#ifndef DEFINEQ_H_
+#define DEFINEQ_H_
 
 #define LENGTH 32
 #define WORD 8
@@ -23,5 +22,7 @@
 
 #define Round_p
 #define Iteration_p
+
+#include <stdint.h>
 
 #endif

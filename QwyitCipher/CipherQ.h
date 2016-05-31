@@ -3,7 +3,7 @@
 
 typedef struct _Qstate Qstate;
 /*
-typedef struct
+struct Qstate
 {
         uint8_t * orA;
         uint8_t * orB;
@@ -19,16 +19,16 @@ typedef struct
         uint8_t ** W2;
 
         uint16_t index;
-}Qstate;
+};
 */
 void GetNonce(uint8_t * nonce, const uint32_t seed);
 
-extern void InitQstate(struct Qstate *s, uint32_t seed);
-extern void NewQstate(struct Qstate * state);
-extern void CopyQstate(struct Qstate * state, Qstate * copy);
-extern void FreeQstate(struct Qstate * state);
+void InitQstate(Qstate *s, uint32_t seed);
+void NewQstate(Qstate * state);
+void CopyQstate(Qstate * state, Qstate * copy);
+void FreeQstate(Qstate * state);
 
-extern void Iteration(struct Qstate *s);
+void Iteration(Qstate *s);
 
 
 #endif
