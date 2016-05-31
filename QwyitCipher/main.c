@@ -5,7 +5,7 @@
 #include "../DefineQ.h"
 #include "IO.h"
 #include "PrimativeQ.h"
-//#include "CipherQ.h"
+#include "CipherQ.h"
 
 #include <stdio.h>
 

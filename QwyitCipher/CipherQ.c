@@ -1,13 +1,16 @@
 
 
 #include "../DefineQ.h"
-#include "PrimativeQ.h"
 #include "IO.h"
+#include "PrimativeQ.h"
 
 #include "CipherQ.h"
 
-#include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
+/*
 typedef struct
 {
         uint8_t * orA;
@@ -25,7 +28,7 @@ typedef struct
 
         uint16_t index;
 }Qstate;
-
+*/
 void GetNonce(uint8_t * nonce, const uint32_t seed)
 {
 

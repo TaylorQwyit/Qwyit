@@ -1,9 +1,9 @@
 #ifndef CIPHERQ_H_
 #define CIPHERQ_H_
 
-typedef struct _Qstate Qstate;
-/*
-struct Qstate
+//typedef struct _Qstate Qstate;
+
+typedef struct
 {
         uint8_t * orA;
         uint8_t * orB;
@@ -19,8 +19,8 @@ struct Qstate
         uint8_t ** W2;
 
         uint16_t index;
-};
-*/
+} Qstate;
+
 void GetNonce(uint8_t * nonce, const uint32_t seed);
 
 void InitQstate(Qstate *s, uint32_t seed);

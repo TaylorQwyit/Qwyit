@@ -1,6 +1,9 @@
 #include "../DefineQ.h"
 #include "IO.h"
+
 #include "PrimativeQ.h"
+
+#include <stdio.h>
 
 void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
