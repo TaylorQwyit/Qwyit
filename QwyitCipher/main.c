@@ -8,21 +8,28 @@
 #include "CipherQ.h"
 
 #include <stdio.h>
-
+#include <stdlib.h>
 
 int main(void)
 {
 
 	printf("QwyitCipher: main\n");
-	Qstate state;
-	InitQstate(&state, 0);
+	//Qstate state;
+	//InitQstate(&state, 0);
 	
+
+	uint8_t * k1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
+	uint8_t * k2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
+	uint8_t * result  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
+
 	uint32_t i = 0;
-	for(i; i< 2; i++)
+	for(i; i< LENGTH; i++)
 	{
-		Iteration(&state);
-		PrintArray(*state.W1, LENGTH);
+		
+		k1[i] = i+129*3;
+		k2[i] = + 133;
 	}
+	ModEncrypt(k1, k2, result);	
 
 /*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);

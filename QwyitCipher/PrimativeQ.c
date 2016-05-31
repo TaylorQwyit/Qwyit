@@ -18,11 +18,17 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                 uint64_t carry = ( *(uint8_t *)(K1+i) & *(uint8_t *)(K2+i) & MODMASK); 
                 *(uint8_t *)(r+i) =  *(uint8_t *)(K1+i) ^ *(uint8_t *)(K2+i);
                 carry = carry<<1;
+		
+		printf("\nInitial Carry:%lx\n", carry);
+		PrintArray((uint8_t *) r, LENGTH);
                 while(carry != 0)
                 {
                         uint64_t temp_char = (*(uint8_t *)(r+i) & carry & MODMASK);
-			*(uint8_t *)(r+i)= *(uint8_t *)(r+i) ^ carry;
+			*(uint8_t *)(r+i)=  *(uint8_t *)(r+i) ^ carry;
                         carry = temp_char << 1;
+			printf("loop Carry:%lx\n", carry);
+			PrintArray((uint8_t *) r, LENGTH);
+
                 }
         }
 	/*
