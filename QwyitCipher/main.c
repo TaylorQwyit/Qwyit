@@ -14,7 +14,7 @@ int main(void)
 {
 
 	printf("Main\n");
-	//Qstate state;
+	Qstate state;
 	//InitQstate(0, 0);
 
 /*
