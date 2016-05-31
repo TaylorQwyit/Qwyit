@@ -1,7 +1,7 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 8
+#define LENGTH 32
 
 #define WORD 64
 #define MOD 4

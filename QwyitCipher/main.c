@@ -14,8 +14,8 @@ int main(void)
 {
 
 	printf("QwyitCipher: main\n");
+/*	
 	
-	/*
 	Qstate state;
 	InitQstate(&state, 0);
 	Iteration(&state);
@@ -24,11 +24,11 @@ int main(void)
 	PrintArray(*state.W1, LENGTH);
 	Iteration(&state);
 	PrintArray(*state.W1, LENGTH);
-	*/
+	
 
 	uint8_t * k1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 	uint8_t * k2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
-	uint8_t * result  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
+	uint8_t * result  =  (void *)malloc(sizeof(uint8_t)*LENGTH);
 
 	uint32_t i = 0;
 	for(i; i< LENGTH; i++)
@@ -38,11 +38,13 @@ int main(void)
 		k2[i] = + 133;
 	}
 	
-	unsigned char EK[8] = {  0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
-	ModEncrypt(k1, EK, result);	
+	unsigned char EK[16] = {  0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
 
+	ModEncrypt(k1, EK, result);	
 	
-/*
+*/
+	
+
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * W  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * A  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
@@ -77,6 +79,6 @@ int main(void)
 	PrintArray(wTest, LENGTH);
 	
 	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
-*/
+
 }
 
