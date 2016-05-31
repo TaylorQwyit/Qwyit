@@ -15,7 +15,12 @@
 #define BLOCKSIZE 1
 #define BLOCKTRIALS 32
 
-#define WORDMASK (1 << WORD)-1
+#if (WORD > 32)
+	#define WORDMASK 0xFFFFFFFFFFFFFFFF
+#else
+	#define WORDMASK (1 << WORD)-1
+#endif
+
 #define MODMASK 0x7777777777777777
 
 #define MAPSIZE (BLOCKSIZE / 8)
@@ -27,7 +32,7 @@
 //#define Round_p
 //#define Iteration_p
 
-//#define Primative_p
+#define Primative_p
 
 #include <stdint.h>
 

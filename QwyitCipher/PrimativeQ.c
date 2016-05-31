@@ -12,7 +12,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	const void * K2 = key2;
 	const void * r = result;
 
-
+	printf("Wordmask:%lx\n", WORDMASK);
 	uint32_t i = 0;
 	//for(i; i < LENGTH; i++)
 	{
