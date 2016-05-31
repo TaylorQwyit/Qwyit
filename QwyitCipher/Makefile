@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = PrimativeQ.h CipherQ.h IO.h
+DEPS = PrimativeQ.h CipherQ.h IO.h ../DefineQ.h
 OBJ = main.o PrimativeQ.o CipherQ.o IO.o
 
 %.o: %.c $(DEPS)

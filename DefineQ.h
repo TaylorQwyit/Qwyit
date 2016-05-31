@@ -20,4 +20,8 @@
 #define HASHMASK ( (1 << HASHSIZE) -1)
 #define KEYMASK (LENGTH * 2)-1
 
+
+#define Round_p
+#define Iteration_p
+
 #endif

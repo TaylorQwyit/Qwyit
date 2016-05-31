@@ -3,12 +3,18 @@
 #include <string.h>
 
 #include "../DefineQ.h"
-#include "PrimativeQ.h"
-#include "IO.h"
+//#include "PrimativeQ.h"
+//#include "CipherQ.h"
+
+//#include "IO.h"
 
 int main(void)
 {
 
+	//Qstate state;
+	//InitQstate(0, 0);
+
+/*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * W  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * A  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
@@ -43,5 +49,6 @@ int main(void)
 	PrintArray(wTest, LENGTH);
 	
 	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
+*/
 }
 

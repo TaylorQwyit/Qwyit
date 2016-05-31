@@ -40,7 +40,7 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
         uint8_t * a1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
         uint8_t * a2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 
-	#ifdef wround_p
+	#ifdef Round_p
         printf("Round\nor:");
         PrintArray(OR, LENGTH);
 	#endif
@@ -54,7 +54,7 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
 	//ModEncrypt(QK, OR, QK);
 	//ModEncrypt(EK, OR, EK);
 	
-	#ifdef wround_p
+	#ifdef Round_p
         printf("next_or:");
         PrintArray(Next_OR, LENGTH);
         printf("w:");
@@ -137,12 +137,12 @@ void Iteration(Qstate *s)
 	#ifdef Iteration_p
 	printf("Iteration:%d\n", s->index);
 	printf("W1:\n");
-	p(* s->W1, LENGTH);
+	PrintArray(* s->W1, LENGTH);
 	printf("W2:\n");
-	p(* s->W2, LENGTH);
+	PrintArray(* s->W2, LENGTH);
 	printf("OR2:\n");
-	p(* s->OR2, LENGTH);
+	PrintArray(* s->OR2, LENGTH);
 	printf("OR3:\n");
-	p(* s->OR3, LENGTH);
+	PrintArray(* s->OR3, LENGTH);
 	#endif
 }
