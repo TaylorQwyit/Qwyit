@@ -3,7 +3,7 @@
 
 #define LENGTH 16
 
-#define WORD 64
+#define WORD 8
 #define MOD 4
 
 #define MATCHES 1
@@ -17,6 +17,8 @@
 
 #if (WORD > 32)
 	#define WORDMASK 0xFFFFFFFFFFFFFFFF
+#elif (WORD == 32)
+	#define WORDMASK 0xFFFFFFFF
 #else
 	#define WORDMASK (1 << WORD)-1
 #endif

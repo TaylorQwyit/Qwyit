@@ -13,7 +13,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	void * r = result;
 */
 
-
+	//printf("Wordmask:%lx modmask:%lx\n", WORDMASK, MODMASK);
 	PrintArray(result, LENGTH);
 	//*(uint64_t *)((result+8)) = 0xFFFFFFFF;
 	PrintArray(result, LENGTH);
@@ -50,20 +50,26 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
 	{
-                uint64_t carry =  *(uint64_t *)((key1+i)) 
-				 & *(uint64_t *)((key2+i)) 
-                                 & MODMASK; 
+		uint64_t k1test = *(uint64_t *)((key1+i)) & (uint64_t)WORDMASK;
+		printf("k1:%lx\n", k1test);
+                uint64_t carry = (*(uint64_t *)((key1+i)) & (uint64_t)WORDMASK)
+				 & (*(uint64_t *)((key2+i)) & (uint64_t)WORDMASK)
+                                 & (uint64_t)MODMASK; 
 
-                *(uint64_t *)(result+i) =  *(uint64_t *)((key1+i)) 
-					^ *(uint64_t *)((key2+i));
+                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & (uint64_t)WORDMASK)
+					^ (*(uint64_t *)((key2+i)) & (uint64_t)WORDMASK);
                 carry = carry<<1;
 		
 		printf("\ni:%d Initial Carry:%lx\n", i,carry);
 		PrintArray( result, LENGTH);
                 while(carry != 0)
                 {
-                        uint64_t temp_char = *(uint64_t *)((result+i)) & carry & MODMASK;
-			*(uint64_t *)((result+i))=  *(uint64_t *)((result+i)) ^ carry;
+                        uint64_t temp_char = (*(uint64_t *)((result+i)) & (uint64_t)WORDMASK)
+					     & carry 
+					     & (uint64_t)MODMASK;
+
+			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & (uint64_t)WORDMASK)
+						     ^ carry;
                         carry = temp_char << 1;
 			printf("loop Carry:%lx\n", carry);
 			PrintArray(result, LENGTH);
