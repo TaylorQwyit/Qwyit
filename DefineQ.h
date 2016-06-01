@@ -1,9 +1,9 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 16
+#define LENGTH 64
 
-#define WORD 8
+#define WORD 64
 #define MOD 4
 
 #define MATCHES 1

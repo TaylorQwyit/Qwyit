@@ -5,53 +5,23 @@
 
 #include <stdio.h>
 
+/*
+	This Method performs a Mod addition of two arrays and places the result into
+	the third array result. It works at base Mod of MOD value found in DefineQ.h
+	and works at a word size of WORD in bits. It is optimized to run on a 64
+	bit processor, but can be easily changed for any sized processor, simply
+	change the WORD to corresponding processor size and replace uint64_t with
+	the corresponding processor size value.
+	
+	TODO: The bitwise & using WORDMASK is not necessary if WORD value matches the
+	uint64_t value typecast. To optimize further remove WORDMASK and replace uint64_t
+	with the matching processor word size (ie uint32_t for a 32 bit processor)
+*/
 void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
-
-	/*const void * K1 = key1;
-	const void * K2 = key2;
-	void * r = result;
-*/
-
-	//printf("Wordmask:%lx modmask:%lx\n", WORDMASK, MODMASK);
-	PrintArray(result, LENGTH);
-	//*(uint64_t *)((result+8)) = 0xFFFFFFFF;
-	PrintArray(result, LENGTH);
-/*
-	uint32_t i = 0;
-	for(i; i < (LENGTH*8)/WORD; i++)
-	{
-                uint64_t carry =  *((uint64_t *)key1+i)
-                                 & *((uint64_t *)key2+i) 
-                                 & MODMASK;
- 
-                *((uint64_t *)result+i) =  *((uint64_t *)key1+i)
-				    ^ *((uint64_t *)key2+i);
-                carry = carry<<1;
-		
-		//printf("\nInitial Carry:%lx\n", carry);
-		//PrintArray(  result , LENGTH );
-                while(carry != 0)
-                {
-                        uint64_t temp_char = *((uint64_t *)result+i) 
-					     & carry 
-					     & MODMASK;
-		
-			*((uint64_t *)result+i)=  *((uint64_t *)result+i) 
-					     ^ carry;
-                        carry = temp_char << 1;
-			//printf("loop Carry:%lx\n", carry);
-			//PrintArray( result , LENGTH);
-
-                }
-        }
-*/
-	
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
 	{
-		uint64_t k1test = *(uint64_t *)((key1+i)) & (uint64_t)WORDMASK;
-		printf("k1:%lx\n", k1test);
                 uint64_t carry = (*(uint64_t *)((key1+i)) & (uint64_t)WORDMASK)
 				 & (*(uint64_t *)((key2+i)) & (uint64_t)WORDMASK)
                                  & (uint64_t)MODMASK; 
@@ -60,8 +30,6 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 					^ (*(uint64_t *)((key2+i)) & (uint64_t)WORDMASK);
                 carry = carry<<1;
 		
-		printf("\ni:%d Initial Carry:%lx\n", i,carry);
-		PrintArray( result, LENGTH);
                 while(carry != 0)
                 {
                         uint64_t temp_char = (*(uint64_t *)((result+i)) & (uint64_t)WORDMASK)
@@ -71,27 +39,9 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & (uint64_t)WORDMASK)
 						     ^ carry;
                         carry = temp_char << 1;
-			printf("loop Carry:%lx\n", carry);
-			PrintArray(result, LENGTH);
-
                 }
         }
 
-/*	
-	uint32_t i = 0;
-	for(i; i < LENGTH; i++)
-	{
-                uint64_t carry = (key1[i] & key2[i] & MODMASK); 
-                result[i] = key1[i] ^ key2[i];
-                carry = carry<<1;
-                while(carry != 0)
-                {
-                        uint64_t temp_char = (result[i] & carry & MODMASK);
-                        result[i] = result[i] ^ carry;
-                        carry = temp_char << 1;
-                }
-        }
-*/
 	#ifdef Primative_p	
         printf("ModEncrypt\n");
         PrintArray(key1, LENGTH);
