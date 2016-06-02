@@ -22,55 +22,73 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
 	{
-                uint64_t carry = (*(uint64_t *)((key1+i)) & (uint64_t)WORDMASK)
-				 & (*(uint64_t *)((key2+i)) & (uint64_t)WORDMASK)
+                uint64_t carry = (*(uint64_t *)((key1+i)) & WORDMASK)
+				 & (*(uint64_t *)((key2+i)) & WORDMASK)
                                  & (uint64_t)MODMASK; 
 
-                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & (uint64_t)WORDMASK)
-					^ (*(uint64_t *)((key2+i)) & (uint64_t)WORDMASK);
+                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
+					^ (*(uint64_t *)((key2+i)) & WORDMASK);
                 carry = carry<<1;
 		
                 while(carry != 0)
                 {
-                        uint64_t temp_char = (*(uint64_t *)((result+i)) & (uint64_t)WORDMASK)
+                        uint64_t temp_char = (*(uint64_t *)((result+i)) & WORDMASK)
 					     & carry 
 					     & (uint64_t)MODMASK;
 
-			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & (uint64_t)WORDMASK)
+			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
 						     ^ carry;
                         carry = temp_char << 1;
                 }
         }
-
+	
 	#ifdef Primative_p	
-        printf("ModEncrypt\n");
+        printf("ModEncrypt iterations:%d\n", LENGTH/(WORD/8));
         PrintArray(key1, LENGTH);
         PrintArray(key2, LENGTH);
         PrintArray(result, LENGTH);
         #endif
 }
 
-
-
+/*
+	This Method performs a Mod subtraction of key2 from key1 and places the result into
+	the third array result. It works at base Mod of MOD value found in DefineQ.h
+	and works at a word size of WORD in bits. It is optimized to run on a 64
+	bit processor, but can be easily changed for any sized processor, simply
+	change the WORD to corresponding processor size and replace uint64_t with
+	the corresponding processor size value.
+	
+	TODO: The bitwise & using WORDMASK is not necessary if WORD value matches the
+	uint64_t value typecast. To optimize further remove WORDMASK and replace uint64_t
+	with the matching processor word size (ie uint32_t for a 32 bit processor)
+*/
 void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
+	uint32_t i = 0;
+	for(i; i < LENGTH; i+=WORD/8)
+	{
+                uint64_t carry = (~*(uint64_t *)((key1+i)) & WORDMASK)
+				 & (*(uint64_t *)((key2+i)) & WORDMASK)
+                                 & (uint64_t)MODMASK; 
 
-        uint32_t i = 0;
-        for(i; i < LENGTH; i++)
-        {
-                uint8_t carry = (~key1[i] & key2[i] & MODMASK);
-                result[i] = key1[i] ^ key2[i];
+                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
+					^ (*(uint64_t *)((key2+i)) & WORDMASK);
                 carry = carry<<1;
+		
                 while(carry != 0)
                 {
-                        uint8_t temp_char = (~result[i] & carry & MODMASK);
-                        result[i] = result[i] ^ carry;
+                        uint64_t temp_char = (~*(uint64_t *)((result+i)) & WORDMASK)
+					     & carry 
+					     & (uint64_t)MODMASK;
+
+			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
+						     ^ carry;
                         carry = temp_char << 1;
                 }
         }
 
 	#ifdef Primative_p	
-        printf("ModDecrypt\n");
+        printf("ModDecrypt iterations:%d\n", LENGTH/(WORD/8));
         PrintArray(key1, LENGTH);
         PrintArray(key2, LENGTH);
         PrintArray(result, LENGTH);
