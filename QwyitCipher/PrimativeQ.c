@@ -119,7 +119,14 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	   {
 	      index = (index +  (*(key+wordIndex)>>modIndex)&MODMASK) & KEYMASK;
 	      printf("index:%d current:%x\n", index, (*(key+wordIndex)>>modIndex)&MODMASK);
-	      
+	      uint64_t resultArray = *(uint64_t *)alphabet;
+	      //SHIFT is required here because of little endian machine,
+	      //need to investiage to make sure no shifting required for big endian
+	      int8_t shift = ( (index&1) == 0) ? 4 : -4;
+	      uint64_t r = (resultArray >> MOD*index + shift)&MODMASK;
+	      *(result+wordIndex) |= r<< modIndex;
+
+	      printf("a:%lx a[%d]=%lx\n", resultArray, MOD*index+shift, r); 
 	      index++;
 	   }
 	   wordIndex++;
@@ -149,9 +156,11 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
                 upperIndex++;
 	}
 */
-	
-
 	/*
+	uint32_t i;
+	uint32_t upperIndex = 0;
+	uint32_t lowerIndex = 0;
+
         for(i = 0; i < LENGTH; i++)
         {
 
@@ -183,7 +192,8 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
                 lowerIndex++;
         }
-	*/	
+	*/
+
 	#ifdef Primative_p	
         printf("Extract\n");
         PrintCharArray(key, LENGTH);
