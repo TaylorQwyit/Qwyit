@@ -8,6 +8,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 */
-void PrintArray(const uint8_t * a, const uint32_t len);
-
+void PrintCharArray(const uint8_t * a, const uint32_t len);
+void PrintArray(const uint64_t * a, const uint32_t len);
 #endif

@@ -46,9 +46,9 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	
 	#ifdef Primative_p	
         printf("ModEncrypt iterations:%d\n", LENGTH/(WORD/8));
-        PrintArray(key1, LENGTH);
-        PrintArray(key2, LENGTH);
-        PrintArray(result, LENGTH);
+        PrintCharArray(key1, LENGTH);
+        PrintCharArray(key2, LENGTH);
+        PrintCharArray(result, LENGTH);
         #endif
 }
 
@@ -93,9 +93,9 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 
 	#ifdef Primative_p	
         printf("ModDecrypt iterations:%d\n", LENGTH/(WORD/8));
-        PrintArray(key1, LENGTH);
-        PrintArray(key2, LENGTH);
-        PrintArray(result, LENGTH);
+        PrintCharArray(key1, LENGTH);
+        PrintCharArray(key2, LENGTH);
+        PrintCharArray(result, LENGTH);
         #endif
 }
 
@@ -106,7 +106,46 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
         uint32_t i;
         uint32_t upperIndex = 0;
         uint32_t lowerIndex = 0;
+	
+	uint64_t keyArray = *(uint64_t *)((key));
+	uint64_t alphabetArray = *(uint64_t *)((alphabet));
+        printf("key:%lx k:%lx\n",keyArray, keyArray&0xF0);
+        printf("alphabet:%lx k:%lx\n",alphabetArray, alphabetArray&0xF);
 
+	
+	if(BIGENDIAN)
+		printf("Big Endian\n");
+	else
+		printf("Little Endian\n");
+
+	
+
+        for(i = 0; i < LENGTH*2*MOD; i+=MOD)
+        {
+                //printf("iteration:%d\n", i);
+		//uint64_t keyArray = *(uint64_t *)((key));
+		//uint64_t alphabetArray = *(uint64_t *)((alphabet));
+
+		upperIndex = ( upperIndex 
+			     + (uint8_t)( (*(key+i/8) >> (4&~i))&0xF) ) 
+			       & KEYMASK;
+		printf("index:%d\n", upperIndex);
+
+		if((uint32_t)(upperIndex&0x1) == 0)
+                {
+			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] & 0xF0);
+                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] & 0xF0)>>(4&i) ;
+                }
+                else
+                {
+			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] << 4 );
+                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] << 4 )>>(4&i) ;
+                }
+
+                upperIndex++;
+	}
+
+/*
         for(i = 0; i < LENGTH*2*MOD; i+=MOD)
         {
                 //printf("iteration:%d\n", i);
@@ -126,7 +165,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
                 upperIndex++;
 	}
-
+*/
 	/*
         for(i = 0; i < LENGTH; i++)
         {
@@ -162,9 +201,9 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	*/	
 	#ifdef Primative_p	
         printf("Extract\n");
-        PrintArray(key, LENGTH);
-        PrintArray(alphabet, LENGTH);
-        PrintArray(result, LENGTH);
+        PrintCharArray(key, LENGTH);
+        PrintCharArray(alphabet, LENGTH);
+        PrintCharArray(result, LENGTH);
         #endif
 }
 
@@ -177,9 +216,9 @@ void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t *
 
 	#ifdef Primative_p	
         printf("Combine\n");
-        PrintArray(key1, LENGTH);
-        PrintArray(key2, LENGTH);
-        PrintArray(result, LENGTH);
+        PrintCharArray(key1, LENGTH);
+        PrintCharArray(key2, LENGTH);
+        PrintCharArray(result, LENGTH);
         #endif
 
 }

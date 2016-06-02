@@ -1,7 +1,7 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 16
+#define LENGTH 8
 
 #define WORD 64
 #define MOD 4
@@ -37,5 +37,9 @@
 #define Primative_p
 
 #include <stdint.h>
+
+//#define BIGENDIAN (*(uint16_t *)"\0\xff" < 0x100)
+
+#define BIGENDIAN (!*(uint8_t *)&(uint16_t){1})
 
 #endif
