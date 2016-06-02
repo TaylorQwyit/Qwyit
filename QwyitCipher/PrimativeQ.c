@@ -112,13 +112,16 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
                 //printf("iteration:%d\n", i);
 		upperIndex = (upperIndex + (uint8_t)(   (*(key+i/8) >> (4&~i))&0xF) ) & KEYMASK;
 		printf("index:%d\n", upperIndex);
-                if((uint32_t)(upperIndex&0x1) == 0)
+
+		if((uint32_t)(upperIndex&0x1) == 0)
                 {
-                        result[i] |= alphabet[(uint32_t)(upperIndex>>1)] & 0xF0;
+			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] & 0xF0);
+                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] & 0xF0)>>(4&i) ;
                 }
                 else
                 {
-                        result[i] |= alphabet[(uint32_t)(upperIndex>>1)] << 4;
+			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] << 4 );
+                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] << 4 )>>(4&i) ;
                 }
 
                 upperIndex++;
@@ -156,7 +159,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
                 lowerIndex++;
         }
-	*/
+	*/	
 	#ifdef Primative_p	
         printf("Extract\n");
         PrintArray(key, LENGTH);
