@@ -109,7 +109,25 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 		printf("Little Endian\n");
 
 
-        int32_t i;
+        int32_t wordIndex = 0;
+	uint32_t index = 0;
+	while(wordIndex < LENGTH)
+	{
+
+	   int32_t modIndex = 8 - MOD;
+	   for(modIndex; modIndex >= 0; modIndex -= MOD)
+	   {
+	      index = (index +  (*(key+wordIndex)>>modIndex)&MODMASK) & KEYMASK;
+	      printf("index:%d current:%x\n", index, (*(key+wordIndex)>>modIndex)&MODMASK);
+	      
+	      index++;
+	   }
+	   wordIndex++;
+	}
+
+
+/*
+	uint32_t i;
 	uint32_t upperIndex = 0;
         for(i = 0; i < LENGTH*2*MOD; i+=MOD)
         {
@@ -119,17 +137,19 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
 		if((uint32_t)(upperIndex&0x1) == 0)
                 {
-			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] & 0xF0);
+			//printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] & 0xF0);
                         result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] & 0xF0)>>(4&i) ;
                 }
                 else
                 {
-			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] << 4 );
+			//printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] << 4 );
                         result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] << 4 )>>(4&i) ;
                 }
 
                 upperIndex++;
 	}
+*/
+	
 
 	/*
         for(i = 0; i < LENGTH; i++)
