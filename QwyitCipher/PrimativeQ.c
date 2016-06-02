@@ -100,53 +100,17 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 }
 
 
-void Extract(const uint64_t * key, const uint64_t * alphabet, uint64_t *result)
+void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
-        int32_t i;
-        uint32_t upperIndex = 0;
-        uint32_t lowerIndex = 0;
-	
-	uint64_t keyArray = *(uint64_t *)((key));
-	uint64_t alphabetArray = *(uint64_t *)((alphabet));
-        printf("key:%lx k:%lx\n",keyArray, keyArray&0xF0);
-
-	
 	if(BIGENDIAN)
 		printf("Big Endian\n");
 	else
 		printf("Little Endian\n");
 
-	
 
-        for(i = LENGTH*2*MOD-MOD; i >= 0; i-=MOD)
-        {
-                //printf("iteration:%d\n", i);
-		//uint64_t keyArray = *(uint64_t *)((key));
-		//uint64_t alphabetArray = *(uint64_t *)((alphabet));
-
-        	printf("alphabet:%lx k:%lx\n",alphabetArray, (alphabetArray>>i)  & 0xF);
-		/*upperIndex = ( upperIndex 
-			     + (uint8_t)( (*(key+i/8) >> (4&~i))&0xF) ) 
-			       & KEYMASK;*/
-		printf("i:%d index:%d\n",i, upperIndex);
-
-                upperIndex++;
-		/*
-		if((uint32_t)(upperIndex&0x1) == 0)
-                {
-			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] & 0xF0);
-                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] & 0xF0)>>(4&i) ;
-                }
-                else
-                {
-			printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] << 4 );
-                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] << 4 )>>(4&i) ;
-                }
-		*/
-	}
-
-/*
+        int32_t i;
+	uint32_t upperIndex = 0;
         for(i = 0; i < LENGTH*2*MOD; i+=MOD)
         {
                 //printf("iteration:%d\n", i);
@@ -166,7 +130,7 @@ void Extract(const uint64_t * key, const uint64_t * alphabet, uint64_t *result)
 
                 upperIndex++;
 	}
-*/
+
 	/*
         for(i = 0; i < LENGTH; i++)
         {
@@ -202,9 +166,9 @@ void Extract(const uint64_t * key, const uint64_t * alphabet, uint64_t *result)
 	*/	
 	#ifdef Primative_p	
         printf("Extract\n");
-        PrintArray(key, 1);
-        PrintArray(alphabet, 1);
-        PrintArray(result, 1);
+        PrintCharArray(key, LENGTH);
+        PrintCharArray(alphabet, LENGTH);
+        PrintCharArray(result, LENGTH);
         #endif
 }
 
