@@ -124,8 +124,8 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	      uint32_t bitPosition = index*MOD;
 	      uint8_t alphabetChar = *(alphabet + (bitPosition>>3));
 	      printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
-	      uint8_t resultChar = (alphabetChar >> (bitPosition&0x7) )&MODMASK;
-	      printf("resultChar:%x bitShift:%x\n", resultChar,(bitPosition&0x7));
+	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MOD) )&MODMASK;
+	      printf("resultChar:%x bitShift:%x\n", resultChar,(~bitPosition&MOD));
 
 	      uint64_t resultArray = *(uint64_t *)alphabet;
 	      //SHIFT is required here because of little endian machine,
