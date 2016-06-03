@@ -1,10 +1,10 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 8
+#define LENGTH 4
 
 #define WORD 8
-#define MOD 4
+#define MOD 2
 
 #define MATCHES 1
 #define ITERATIONSIZE 1
@@ -23,15 +23,18 @@
 	#define WORDMASK (1 << WORD)-1
 #endif
 
-#define MODMASK_WORD 0x7777777777777777
 #define MODMASK (1 << MOD)-1
-
 #if MOD == 1
+	#define MODMASK_WORD 0x0000000000000000
 	#define MODPERBYTE 0x7
 #elif MOD == 2
+	#define MODMASK_WORD 0x5555555555555555
 	#define MODPERBYTE 0x6
 #elif MOD == 4
+	#define MODMASK_WORD 0x7777777777777777
 	#define MODPERBYTE 0x4	
+#elif MOD == 8
+	#define MODPERBYTE 0x0	
 #endif
 
 #define MAPSIZE (BLOCKSIZE / 8)
