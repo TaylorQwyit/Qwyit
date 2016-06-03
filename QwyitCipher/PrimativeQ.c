@@ -109,16 +109,24 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 		printf("Little Endian\n");
 
 
+        PrintCharArray(key, LENGTH);
+        PrintCharArray(alphabet, LENGTH);
+	printf("MOD:%d MODMASK:%x MODPERBYTE:%d\n", MOD, MODMASK, MODPERBYTE);
         int32_t wordIndex = 0;
 	uint32_t index = 0;
 	while(wordIndex < LENGTH)
 	{
-
 	   int32_t modIndex = 8 - MOD;
 	   for(modIndex; modIndex >= 0; modIndex -= MOD)
 	   {
-	      index = (index +  (*(key+wordIndex)>>modIndex)&MODMASK) & KEYMASK;
-	      printf("index:%d current:%x\n", index, (*(key+wordIndex)>>modIndex)&MODMASK);
+	      index = (index +  ((*(key+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
+	      printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
+	      uint32_t bitPosition = index*MOD;
+	      uint8_t alphabetChar = *(alphabet + (bitPosition>>3));
+	      printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
+	      uint8_t resultChar = (alphabetChar >> (bitPosition&0x7) )&MODMASK;
+	      printf("resultChar:%x bitShift:%x\n", resultChar,(bitPosition&0x7));
+
 	      uint64_t resultArray = *(uint64_t *)alphabet;
 	      //SHIFT is required here because of little endian machine,
 	      //need to investiage to make sure no shifting required for big endian
