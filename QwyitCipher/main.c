@@ -15,7 +15,7 @@ int main(void)
 
 	printf("QwyitCipher: main\n");
 
-
+/*
 	uint8_t * k1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 	uint8_t * k2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 	uint8_t * result  =  (void *)malloc(sizeof(uint8_t)*LENGTH);
@@ -33,7 +33,7 @@ int main(void)
 	Extract(k1, EK, result);	
 	//ModDecrypt(result, EK, k2);	
 
-/*	
+*/
 
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * W  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
@@ -62,13 +62,13 @@ int main(void)
 	
 	printf("Cipher Test\n");
 	printf("W(%d)\n", memcmp(R, rTest, LENGTH));
-	PrintArray(R, LENGTH);
-	PrintArray(rTest, LENGTH);
+	PrintCharArray(R, LENGTH);
+	PrintCharArray(rTest, LENGTH);
 	printf("R(%d)\n", memcmp(W, wTest, LENGTH));
-	PrintArray(W, LENGTH);
-	PrintArray(wTest, LENGTH);
+	PrintCharArray(W, LENGTH);
+	PrintCharArray(wTest, LENGTH);
 	
 	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
-*/
+
 }
 

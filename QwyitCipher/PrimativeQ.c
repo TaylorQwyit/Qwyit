@@ -103,15 +103,14 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
+/*
 	if(BIGENDIAN)
 		printf("Big Endian\n");
 	else
 		printf("Little Endian\n");
+*/
 
-
-        PrintCharArray(key, LENGTH);
-        PrintCharArray(alphabet, LENGTH);
-	printf("MOD:%d MODMASK:%x MODPERBYTE:%d\n", MOD, MODMASK, MODPERBYTE);
+	//printf("MOD:%d MODMASK:%x MODPERBYTE:%d\n", MOD, MODMASK, MODPERBYTE);
         int32_t wordIndex = 0;
 	uint32_t index = 0;
 	while(wordIndex < LENGTH)
@@ -120,13 +119,15 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	   for(modIndex; modIndex >= 0; modIndex -= MOD)
 	   {
 	      index = (index +  ((*(key+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
-	      printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
+	      //printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
 	      uint32_t bitPosition = index*MOD;
 	      uint8_t alphabetChar = *(alphabet + (bitPosition>>3));
-	      printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
-	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MOD) )&MODMASK;
-	      printf("resultChar:%x bitShift:%x\n", resultChar,(~bitPosition&MOD));
-
+	      //printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
+	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
+	      //printf("resultChar:%x bitShift:%x\n\n", resultChar,(~bitPosition&MODPERBYTE));
+	      *(result+wordIndex) |= resultChar << modIndex;
+ 
+	      /*
 	      uint64_t resultArray = *(uint64_t *)alphabet;
 	      //SHIFT is required here because of little endian machine,
 	      //need to investiage to make sure no shifting required for big endian
@@ -136,7 +137,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	      printf("result pre-update:%x\n", *(result+wordIndex));
 	      *(result+wordIndex) |= r<< modIndex;
 	      printf("result:%x shifted<-%d current value:%lx\n\n", *(result+wordIndex),modIndex, r);
-	      
+	      */
 	      index++;
 	   }
 	   wordIndex++;
