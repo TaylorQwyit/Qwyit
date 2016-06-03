@@ -124,9 +124,11 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	      //need to investiage to make sure no shifting required for big endian
 	      int8_t shift = ( (index&1) == 0) ? 4 : -4;
 	      uint64_t r = (resultArray >> MOD*index + shift)&MODMASK;
+	      printf("a:%lx index%d: shift:%d bitposition:%d\n", resultArray,index,shift, MOD*index+shift); 
+	      printf("result pre-update:%x\n", *(result+wordIndex));
 	      *(result+wordIndex) |= r<< modIndex;
-
-	      printf("a:%lx a[%d]=%lx\n", resultArray, MOD*index+shift, r); 
+	      printf("result:%x shifted<-%d current value:%lx\n\n", *(result+wordIndex),modIndex, r);
+	      
 	      index++;
 	   }
 	   wordIndex++;
