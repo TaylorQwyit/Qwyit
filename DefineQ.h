@@ -1,7 +1,7 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 32
+#define LENGTH 8
 
 #define WORD 8
 #define MOD 4
@@ -43,7 +43,7 @@
 //#define Round_p
 //#define Iteration_p
 
-#define Primative_p
+//#define Primative_p
 
 #include <stdint.h>
 

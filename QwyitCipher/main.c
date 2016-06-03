@@ -14,7 +14,15 @@ int main(void)
 {
 
 	printf("QwyitCipher: main\n");
-
+	Qstate state;
+	InitQstate(&state, 0);
+	
+	uint32_t i = 0;
+	for(i;i<10;i++)
+	{
+		Iteration(&state);
+		PrintCharArray(*state.W1, LENGTH);
+	}
 /*
 	uint8_t * k1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
 	uint8_t * k2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
@@ -35,6 +43,7 @@ int main(void)
 
 */
 
+	/*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * W  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * A  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
@@ -69,6 +78,6 @@ int main(void)
 	PrintCharArray(wTest, LENGTH);
 	
 	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
-
+	*/
 }
 

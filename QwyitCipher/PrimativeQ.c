@@ -103,18 +103,15 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
-/*
-	if(BIGENDIAN)
-		printf("Big Endian\n");
-	else
-		printf("Little Endian\n");
-*/
+	
 
 	//printf("MOD:%d MODMASK:%x MODPERBYTE:%d\n", MOD, MODMASK, MODPERBYTE);
         int32_t wordIndex = 0;
 	uint32_t index = 0;
 	while(wordIndex < LENGTH)
 	{
+	   *(result+wordIndex) = 0;
+
 	   int32_t modIndex = 8 - MOD;
 	   for(modIndex; modIndex >= 0; modIndex -= MOD)
 	   {
@@ -126,19 +123,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
 	      //printf("resultChar:%x bitShift:%x\n\n", resultChar,(~bitPosition&MODPERBYTE));
 	      *(result+wordIndex) |= resultChar << modIndex;
- 
-	      /*
-	      uint64_t resultArray = *(uint64_t *)alphabet;
-	      //SHIFT is required here because of little endian machine,
-	      //need to investiage to make sure no shifting required for big endian
-	      int8_t shift = ( (index&1) == 0) ? 4 : -4;
-	      uint64_t r = (resultArray >> MOD*index + shift)&MODMASK;
-	      printf("a:%lx index%d: shift:%d bitposition:%d\n", resultArray,index,shift, MOD*index+shift); 
-	      printf("result pre-update:%x\n", *(result+wordIndex));
-	      *(result+wordIndex) |= r<< modIndex;
-	      printf("result:%x shifted<-%d current value:%lx\n\n", *(result+wordIndex),modIndex, r);
-	      */
-	      index++;
+      	      index++;
 	   }
 	   wordIndex++;
 	}
@@ -167,7 +152,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
                 upperIndex++;
 	}
 */
-	/*
+/*	
 	uint32_t i;
 	uint32_t upperIndex = 0;
 	uint32_t lowerIndex = 0;
@@ -177,7 +162,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
                 upperIndex = (lowerIndex + (uint8_t)(key[i]>>4) ) & KEYMASK;
 		
-		printf("index upper:%d\n", upperIndex);
+		//printf("index upper:%d\n", upperIndex);
                 if((uint32_t)(upperIndex&0x1) == 0)
                 {
                         result[i] = alphabet[(uint32_t)(upperIndex>>1)] & 0xF0;
@@ -190,7 +175,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
                 upperIndex++;
                 lowerIndex = (upperIndex + (uint8_t)(key[i]&0xF) ) & KEYMASK;
                 
-		printf("index lower:%d\n", lowerIndex);
+		//printf("index lower:%d\n", lowerIndex);
                 if((uint32_t)(lowerIndex&0x1) != 0)
                 {
                         result[i] = result[i] | (alphabet[(uint32_t)(lowerIndex>>1)] & 0xF);
@@ -203,7 +188,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 
                 lowerIndex++;
         }
-	*/
+*/
 
 	#ifdef Primative_p	
         printf("Extract\n");

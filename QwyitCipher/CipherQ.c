@@ -31,7 +31,7 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
 
 	#ifdef Round_p
         printf("Round      OR:");
-        PrintArray(OR, LENGTH);
+        PrintCharArray(OR, LENGTH);
 	#endif
 
 
@@ -45,9 +45,9 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
 	
 	#ifdef Round_p
         printf(" round NextOR:");
-        PrintArray(Next_OR, LENGTH);
+        PrintCharArray(Next_OR, LENGTH);
         printf(" round      W:");
-        PrintArray(Next_W, LENGTH);
+        PrintCharArray(Next_W, LENGTH);
 	#endif
 
 	free(A);
@@ -131,12 +131,12 @@ void Iteration(Qstate *s)
 	#ifdef Iteration_p
 	printf("Iteration:%d\n", s->iteration);
 	printf("W1: ");
-	PrintArray(* s->W1, LENGTH);
+	PrintCharArray(* s->W1, LENGTH);
 	printf("W2: ");
-	PrintArray(* s->W2, LENGTH);
+	PrintCharArray(* s->W2, LENGTH);
 	printf("OR2:");
-	PrintArray(* s->OR2, LENGTH);
+	PrintCharArray(* s->OR2, LENGTH);
 	printf("OR3:");
-	PrintArray(* s->OR3, LENGTH);
+	PrintCharArray(* s->OR3, LENGTH);
 	#endif
 }
