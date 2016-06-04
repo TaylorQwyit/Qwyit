@@ -1,10 +1,10 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 4
+#define LENGTH 2
 
 #define WORD 8
-#define MOD 2
+#define MOD 1
 
 #define MATCHES 1
 #define ITERATIONSIZE 1
@@ -40,7 +40,8 @@
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)
 #define HASHMASK ( (1 << HASHSIZE) -1)
-#define KEYMASK (LENGTH * 2)-1
+//#define KEYMASK (LENGTH * 2)-1
+#define KEYMASK (LENGTH * 8/MOD)-1
 
 
 //#define Round_p

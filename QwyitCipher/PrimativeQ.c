@@ -103,10 +103,11 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
-	
+	#ifdef Primative_p
+	printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d\n", MOD, MODMASK, MODPERBYTE, KEYMASK);
+	#endif
 
-	//printf("MOD:%d MODMASK:%x MODPERBYTE:%d\n", MOD, MODMASK, MODPERBYTE);
-        int32_t wordIndex = 0;
+	int32_t wordIndex = 0;
 	uint32_t index = 0;
 	while(wordIndex < LENGTH)
 	{
@@ -116,42 +117,22 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	   for(modIndex; modIndex >= 0; modIndex -= MOD)
 	   {
 	      index = (index +  ((*(key+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
-	      //printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
 	      uint32_t bitPosition = index*MOD;
 	      uint8_t alphabetChar = *(alphabet + (bitPosition>>3));
-	      //printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
 	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
-	      //printf("resultChar:%x bitShift:%x\n\n", resultChar,(~bitPosition&MODPERBYTE));
+	      
+	      #ifdef Primative_p
+	      printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
+	      printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
+	      printf("resultChar:%x bitShift:%x\n", resultChar,(~bitPosition&MODPERBYTE));
+	      #endif
+
 	      *(result+wordIndex) |= resultChar << modIndex;
       	      index++;
 	   }
 	   wordIndex++;
 	}
 
-
-/*
-	uint32_t i;
-	uint32_t upperIndex = 0;
-        for(i = 0; i < LENGTH*2*MOD; i+=MOD)
-        {
-                //printf("iteration:%d\n", i);
-		upperIndex = (upperIndex + (uint8_t)(   (*(key+i/8) >> (4&~i))&0xF) ) & KEYMASK;
-		printf("index:%d\n", upperIndex);
-
-		if((uint32_t)(upperIndex&0x1) == 0)
-                {
-			//printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] & 0xF0);
-                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] & 0xF0)>>(4&i) ;
-                }
-                else
-                {
-			//printf("result:%x\n", alphabet[(uint32_t)(upperIndex>>1)] << 4 );
-                        result[i/8] |= (alphabet[(uint32_t)(upperIndex>>1)] << 4 )>>(4&i) ;
-                }
-
-                upperIndex++;
-	}
-*/
 /*	
 	uint32_t i;
 	uint32_t upperIndex = 0;
@@ -201,6 +182,10 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t * a2, uint8_t *result)
 {
 
+        
+	#ifdef Primative_p	
+	printf("Combine begin\n");
+	#endif
         Extract(key1, key2, a1);
         Extract(key2, key1, a2);
         ModEncrypt(a1, a2, result);
@@ -211,7 +196,6 @@ void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t *
         PrintCharArray(key2, LENGTH);
         PrintCharArray(result, LENGTH);
         #endif
-
 }
 
 void OneWayCut(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
