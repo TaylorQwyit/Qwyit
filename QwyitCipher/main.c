@@ -4,7 +4,7 @@
 
 #include "../DefineQ.h"
 #include "IO.h"
-#include "PrimativeQ.h"
+#include "PrimitiveQ.h"
 #include "CipherQ.h"
 
 #include <stdio.h>

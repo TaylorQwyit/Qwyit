@@ -41,7 +41,6 @@
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)
 #define HASHMASK ( (1 << HASHSIZE) -1)
-//#define KEYMASK (LENGTH * 2)-1
 #define KEYMASK (LENGTH * 8/MOD)-1
 
 
@@ -54,7 +53,6 @@
 #include <stdint.h>
 
 //#define BIGENDIAN (*(uint16_t *)"\0\xff" < 0x100)
-
 #define BIGENDIAN (!*(uint8_t *)&(uint16_t){1})
 
 #endif
