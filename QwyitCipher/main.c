@@ -18,7 +18,7 @@ int main(void)
 	InitQstate(&state, 0);
 	
 	uint32_t i = 0;
-	for(i;i<3;i++)
+	for(i;i<10;i++)
 	{
 		Iteration(&state);
 		PrintCharArray(*state.W1, LENGTH);

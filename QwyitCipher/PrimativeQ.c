@@ -103,7 +103,7 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
-	#ifdef Primative_p
+	#ifdef Primative_Extract_p
 	printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d\n", MOD, MODMASK, MODPERBYTE, KEYMASK);
 	#endif
 
@@ -121,7 +121,7 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	      uint8_t alphabetChar = *(alphabet + (bitPosition>>3));
 	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
 	      
-	      #ifdef Primative_p
+	      #ifdef Primative_Extract_p
 	      printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
 	      printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
 	      printf("resultChar:%x bitShift:%x\n", resultChar,(~bitPosition&MODPERBYTE));

@@ -1,9 +1,9 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 2
+#define LENGTH 64
 
-#define WORD 8
+#define WORD 64
 #define MOD 1
 
 #define MATCHES 1
@@ -34,6 +34,7 @@
 	#define MODMASK_WORD 0x7777777777777777
 	#define MODPERBYTE 0x4	
 #elif MOD == 8
+	#define MODMASK_WORD 0x7F7F7F7F7F7F7F7F
 	#define MODPERBYTE 0x0	
 #endif
 
@@ -48,6 +49,7 @@
 //#define Iteration_p
 
 //#define Primative_p
+//#define Primative_Extract_p
 
 #include <stdint.h>
 
