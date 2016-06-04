@@ -18,32 +18,15 @@ int main(void)
 	InitQstate(&state, 0);
 	
 	uint32_t i = 0;
-	for(i;i<10;i++)
+	for(i;i<100;i++)
 	{
 		Iteration(&state);
 		PrintCharArray(*state.W1, LENGTH);
 	}
+
+
 /*
-	uint8_t * k1  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
-	uint8_t * k2  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
-	uint8_t * result  =  (void *)malloc(sizeof(uint8_t)*LENGTH);
-
-	uint32_t i = 0;
-	for(i; i< LENGTH; i++)
-	{
-		
-		k1[i] = i+129*3;
-	}
 	
-	uint8_t EK[64] = {  0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF,0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF};
-
-	//uint64_t EK[1] = { 0x0123456789ABCDEF };
-	Extract(k1, EK, result);	
-	//ModDecrypt(result, EK, k2);	
-
-*/
-
-	/*
 	unsigned char * R  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * W  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
 	unsigned char * A  =  (unsigned char *)malloc(sizeof(char)*LENGTH);
@@ -78,6 +61,6 @@ int main(void)
 	PrintCharArray(wTest, LENGTH);
 	
 	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
-	*/
+*/	
 }
 

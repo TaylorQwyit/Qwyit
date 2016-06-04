@@ -1,9 +1,9 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 64
+#define LENGTH 2
 
-#define WORD 64
+#define WORD 8
 #define MOD 1
 
 #define MATCHES 1
@@ -48,7 +48,7 @@
 //#define Iteration_p
 
 //#define Primitive_p
-#define Primitive_Extract_p
+//#define Primitive_Extract_p
 
 #include <stdint.h>
 
