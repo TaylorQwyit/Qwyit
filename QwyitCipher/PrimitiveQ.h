@@ -5,8 +5,8 @@
  *
  */
 
-#ifndef PRIMATIVEQ_H_
-#define PRIMATIVEQ_H_
+#ifndef PRIMITIVEQ_H_
+#define PRIMITIVEQ_H_
 
 void ModEncrypt(const uint8_t * k1, const uint8_t * k2, uint8_t * r);
 
