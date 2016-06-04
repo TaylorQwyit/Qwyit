@@ -99,7 +99,17 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
         #endif
 }
 
+/*
+Extract works by looping through each 8 bit word in the key, extracting
+the MOD value of key and generating an index. The index is then used to
+find the corresponding value in alphabet.
 
+TODO: this method works by using byte level addresses. Instead of 
+looping through each word, loop based on uint64_t values. Or better yet
+use uint64_t values and then mod according to MODMASK. This will result in
+the same behavior as the ModEncrypt methods. Allowing for replacement of
+uintXX_t with the processor word 
+*/
 void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 {
 
