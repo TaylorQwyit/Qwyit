@@ -4,7 +4,7 @@
 #define LENGTH 4
 
 #define WORD 8
-#define MOD 4
+#define MOD 1
 
 #define MATCHES 1
 #define ITERATIONSIZE 1

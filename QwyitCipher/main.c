@@ -48,7 +48,9 @@ int main(void)
 */
 
 /*
-	uint8_t c2[32] = {0x05, 0x18, 0xa3, 0xb6};
+	//uint8_t c2[32] = {0x05, 0x18, 0xa3, 0xb6};
+	uint8_t c2[32] = {0x01, 0xd6, 0x2b, 0xb4};
+	
 	uint8_t r1[32] = {0};
 	
         ModDecrypt(c2, k1, r1);
@@ -61,8 +63,10 @@ int main(void)
 */
 
 
-/*
-	uint8_t r1[32] = {0x03,0xd2, 0x29,0xf8};
+///*
+	//uint8_t r1[32] = {0x03,0xd2, 0x29,0xf8};
+
+	uint8_t r1[32] = {0x0f, 0x90, 0xa1, 0xf6};
 	uint8_t r2[32] = {0};
         ModDecrypt(r1, k2, r2);
 	
@@ -70,11 +74,11 @@ int main(void)
 	PrintCharArray(r1,LENGTH);
 	printf("k2: ");
 	PrintCharArray(k2,LENGTH);
-	printf("r1: ");
+	printf("r2: ");
 	PrintCharArray(r2,LENGTH);
 	printf("m1: ");
 	PrintCharArray(m1,LENGTH);
-*/
+//*/
 
 		
 /*
