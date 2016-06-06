@@ -1,10 +1,10 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 2
+#define LENGTH 4
 
 #define WORD 8
-#define MOD 1
+#define MOD 4
 
 #define MATCHES 1
 #define ITERATIONSIZE 1
