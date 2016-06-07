@@ -3,7 +3,7 @@
 
 #define LENGTH 8
 
-#define WORD 8
+#define WORD 16
 #define MOD 1
 
 #define MATCHES 1
