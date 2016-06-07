@@ -5,6 +5,41 @@
 
 #include <stdio.h>
 
+
+void ModLock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  const uint8_t *mask)
+{
+	uint32_t i = 0;
+	for(i; i < LENGTH; i+=WORD/8)
+	{
+                uint64_t carry = (*(uint64_t *)((key1+i)) & WORDMASK)
+				 & (*(uint64_t *)((key2+i)) & WORDMASK)
+                                 & (uint64_t)MODMASK_WORD; 
+
+                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
+					^ (*(uint64_t *)((key2+i)) & WORDMASK);
+                carry = carry<<1;
+		
+                while(carry != 0)
+                {
+                        uint64_t temp_char = (*(uint64_t *)((result+i)) & WORDMASK)
+					     & carry 
+					     & (uint64_t)MODMASK_WORD;
+
+			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
+						     ^ carry;
+                        carry = temp_char << 1;
+                }
+        }
+	
+	#ifdef Primitive_p	
+        printf("ModLock iterations:%d\n", LENGTH/(WORD/8));
+        PrintCharArray(mask, LENGTH);
+        PrintCharArray(key1, LENGTH);
+        PrintCharArray(key2, LENGTH);
+        PrintCharArray(result, LENGTH);
+        #endif
+}
+
 /*
 	This Method performs a Mod addition of two arrays and places the result into
 	the third array result. It works at base Mod of MOD value found in DefineQ.h
