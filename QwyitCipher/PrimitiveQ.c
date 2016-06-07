@@ -13,7 +13,8 @@ void ModLock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  cons
 	{
                 uint64_t carry = (*(uint64_t *)((key1+i)) & WORDMASK)
 				 & (*(uint64_t *)((key2+i)) & WORDMASK)
-                                 & (uint64_t)MODMASK_WORD; 
+                                 //& (uint64_t)MODMASK_WORD; 
+				 & (*(uint64_t *)((mask+i)) & WORDMASK);
 
                 *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
 					^ (*(uint64_t *)((key2+i)) & WORDMASK);
@@ -22,8 +23,9 @@ void ModLock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  cons
                 while(carry != 0)
                 {
                         uint64_t temp_char = (*(uint64_t *)((result+i)) & WORDMASK)
-					     & carry 
-					     & (uint64_t)MODMASK_WORD;
+					     & carry
+				 	     & (*(uint64_t *)((mask+i)) & WORDMASK);
+					     //& (uint64_t)MODMASK_WORD;
 
 			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
 						     ^ carry;
