@@ -16,7 +16,7 @@ uint32_t main(void)
 	srand(23);
 	for(i = 0; i < MESSAGESIZE; i+=1)
 	{	
-		//message[i] = 0x11;
+		//message[i] = 0xff;
 		//message[i] = i;
 		message[i] = rand() % 256;
 	}

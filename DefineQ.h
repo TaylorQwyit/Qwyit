@@ -6,14 +6,10 @@
 #define WORD 8
 #define MOD 1
 
-#define MATCHES 1
-#define ITERATIONSIZE 1
-#define HASHSIZE 4
 #define MESSAGESIZE 100
 
-#define HASHCHARACTERS 32
-#define BLOCKSIZE 1
-#define BLOCKTRIALS 32
+
+
 
 #if (WORD > 32)
 	#define WORDMASK 0xFFFFFFFFFFFFFFFF
