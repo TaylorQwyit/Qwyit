@@ -18,7 +18,7 @@ void PrintCharArray(const uint8_t * array, const uint32_t length)
 void PrintArray(const uint64_t * array, const uint32_t length)
 {
         uint32_t i;
-        for(i = 0; i < length; i++)
+        for(i = 0; i < length/8; i++)
         {
                 printf("%016lx",array[i]);
 

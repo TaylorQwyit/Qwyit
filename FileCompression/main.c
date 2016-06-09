@@ -8,20 +8,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 uint32_t main(void)
 {
-	uint8_t * message  =  (uint8_t *)malloc(sizeof(uint8_t)*MESSAGESIZE);
+	Pointer message;
+	message.p  =  MemAlloc(MESSAGESIZE);
 
 	uint32_t i;
 	srand(23);
 	for(i = 0; i < MESSAGESIZE; i+=1)
 	{	
-		//message[i] = 0xff;
-		//message[i] = i;
-		message[i] = rand() % 256;
+		//message.p+i = 0xff;
+		*(message.p+i) = i;
+		//*(message.p+i) = rand() % 256;
 	}
 
 
 	printf("Compression:\n");
-	CompressTree(message, MESSAGESIZE);
+
+	PrintArray(message.p, MESSAGESIZE);
+	//CompressTree(message, MESSAGESIZE);
 }
