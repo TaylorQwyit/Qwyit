@@ -1,10 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "../QwyitCipher/IO.h"
 #include "../DefineQ.h"
+#include "../QwyitCipher/IO.h"
+#include "../QwyitCipher/PrimitiveQ.h"
+#include "../QwyitCipher/CipherQ.h"
 
 #include "CompressTree.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 
 uint32_t main(void)
 {

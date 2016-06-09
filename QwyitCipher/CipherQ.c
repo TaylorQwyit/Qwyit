@@ -1,5 +1,3 @@
-
-
 #include "../DefineQ.h"
 #include "IO.h"
 #include "PrimitiveQ.h"
