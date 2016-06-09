@@ -15,15 +15,23 @@ void PrintCharArray(const uint8_t * array, const uint32_t length)
         printf("\n");
 }
 
-void PrintArray(const uint64_t * array, const uint32_t length)
+void PrintArray(void * array, const uint32_t length)
 {
         uint32_t i;
-        for(i = 0; i < length/8; i++)
+	Pointer a;
+	a.p = array;
+	printf("length:%d WORD%d loop:%d\n", length, WORD, length/WORD);
+        for(i = 0; i < length/WORD; i++)
         {
-                printf("%016lx",array[i]);
-
+		#if (WORD == 64)
+		printf("%016lx",*(a.p+i));
+		#elif (WORD == 32)
+		printf("%08x",*(a.p+i));
+		#elif (WORD == 16)
+		printf("%04x",*(a.p+i));
+		#elif (WORD == 8)
+		printf("%02x",*(a.p+i));
+		#endif
         }
         printf("\n");
 }
-
-

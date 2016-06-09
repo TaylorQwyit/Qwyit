@@ -1,12 +1,12 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 4
+#define LENGTH 4 //bytes
 
-#define WORD 8 //8,16,32, or 64 
-#define MOD 1 //1,2,4, or 8
+#define WORD 64 //8,16,32, or 64 bits 
+#define MOD 1 //1,2,4, or 8 bits
 
-#define MESSAGESIZE 100
+#define MESSAGESIZE 128 //in Bits
 
 //#define Round_p
 //#define Iteration_p
