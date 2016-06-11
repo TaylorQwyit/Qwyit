@@ -15,11 +15,10 @@ uint32_t main(void)
 
 	uint32_t i;
 	srand(23);
-	for(i = 0; i < MESSAGESIZE/WORD; i+=1)
+	for(i = 0; i < MESSAGESIZE*8/WORD; i+=1)
 	{	
-		//message.p+i = 0xff;
+		//*(message.p+i) = 0xff;
 		//*(message.p+i) = i;
-		*(message.p+i) =  rand();
 		*(message.p+i) = ((uint64_t)rand() << 32) | rand();
 	}
 

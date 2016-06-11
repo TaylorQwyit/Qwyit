@@ -21,7 +21,7 @@ void PrintArray(void * array, const uint32_t length)
 	Pointer a;
 	a.p = array;
 	//printf("length:%d WORD%d loop:%d\n", length, WORD, length/WORD);
-        for(i = 0; i < length/WORD; i++)
+        for(i = 0; i < length*8/WORD; i++)
         {
 		#if (WORD == 64)
 		printf("%016lx",*(a.p+i));
