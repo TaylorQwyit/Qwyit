@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 uint32_t main(void)
 {
 	Pointer message;
@@ -21,11 +20,12 @@ uint32_t main(void)
 		//message.p+i = 0xff;
 		//*(message.p+i) = i;
 		*(message.p+i) =  rand();
+		*(message.p+i) = ((uint64_t)rand() << 32) | rand();
 	}
 
 
 	printf("Compression:\n");
 
 	PrintArray(message.p, MESSAGESIZE);
-	//CompressTree(message, MESSAGESIZE);
+	CompressTree(message, MESSAGESIZE);
 }

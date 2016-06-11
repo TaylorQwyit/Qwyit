@@ -20,7 +20,7 @@ void PrintArray(void * array, const uint32_t length)
         uint32_t i;
 	Pointer a;
 	a.p = array;
-	printf("length:%d WORD%d loop:%d\n", length, WORD, length/WORD);
+	//printf("length:%d WORD%d loop:%d\n", length, WORD, length/WORD);
         for(i = 0; i < length/WORD; i++)
         {
 		#if (WORD == 64)

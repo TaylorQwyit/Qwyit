@@ -7,10 +7,10 @@
 
 #include <stdio.h>
 
-uint8_t * CompressTree(const uint8_t * m, const uint32_t m_len)
+uint8_t * CompressTree(Pointer m, const uint32_t m_len)
 {
-	PrintCharArray(m, m_len);
-
+	PrintArray(m.p, m_len);
+	/*
 	uint32_t messageIndex = 0;
 	uint32_t bits = 0;
 	for(messageIndex; messageIndex < m_len; messageIndex++)
@@ -31,4 +31,5 @@ uint8_t * CompressTree(const uint8_t * m, const uint32_t m_len)
 	}
 
 	printf("Size:%d compressed:%d\n", m_len*8, bits);
+	*/
 }
