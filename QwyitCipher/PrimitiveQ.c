@@ -29,7 +29,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	r.p = (void *)result;
 //	/*	
 	uint32_t i = 0;
-	for(i; i < LENGTH; i+=WORD/8)
+	for(i; i < LENGTH/ (WORD/8) ; i++)
 	{
                 uint64_t carry = (*(uint64_t *)((k1.p+i)) & WORDMASK)
 				 & (*(uint64_t *)((k2.p+i)) & WORDMASK)
