@@ -6,85 +6,6 @@
 #include <stdio.h>
 
 
-void ModLock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  const uint8_t *mask)
-{
-	uint32_t i = 0;
-	for(i; i < LENGTH; i+=WORD/8)
-	{
-                uint64_t carry = (*(uint64_t *)((key1+i)) & WORDMASK)
-				 & (*(uint64_t *)((key2+i)) & WORDMASK)
-                                 //& (uint64_t)MODMASK_WORD; 
-				 & (*(uint64_t *)((mask+i)) & WORDMASK);
-
-                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
-					^ (*(uint64_t *)((key2+i)) & WORDMASK);
-                carry = carry<<1;
-		
-                while(carry != 0)
-                {
-                        uint64_t temp_char = (*(uint64_t *)((result+i)) & WORDMASK)
-					     & carry
-				 	     & (*(uint64_t *)((mask+i)) & WORDMASK);
-					     //& (uint64_t)MODMASK_WORD;
-
-			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
-						     ^ carry;
-                        carry = temp_char << 1;
-                }
-        }
-	
-	#ifdef Primitive_p	
-        printf("ModLock iterations:%d\n", LENGTH/(WORD/8));
-	printf("m: ");
-        PrintCharArray(mask, LENGTH);
-	printf("p: ");
-        PrintCharArray(key1, LENGTH);
-	printf("k: ");
-        PrintCharArray(key2, LENGTH);
-	printf("c: ");
-        PrintCharArray(result, LENGTH);
-        #endif
-}
-void ModUnlock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  const uint8_t *mask)
-{
-        uint32_t i = 0;
-        for(i; i < LENGTH; i+=WORD/8)
-        {
-                uint64_t carry = (~*(uint64_t *)((key1+i)) & WORDMASK)
-                                 & (*(uint64_t *)((key2+i)) & WORDMASK)
-                                 //& (uint64_t)MODMASK_WORD; 
-                                 & (*(uint64_t *)((mask+i)) & WORDMASK);
-
-                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
-                                        ^ (*(uint64_t *)((key2+i)) & WORDMASK);
-                carry = carry<<1;
-
-                while(carry != 0)
-                {
-                        uint64_t temp_char = (~*(uint64_t *)((result+i)) & WORDMASK)
-                                             & carry
-                                             & (*(uint64_t *)((mask+i)) & WORDMASK);
-                                             //& (uint64_t)MODMASK_WORD;
-
-                        *(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
-                                                     ^ carry;
-                        carry = temp_char << 1;
-                }
-        }
-
-        #ifdef Primitive_p      
-        printf("ModUnlock iterations:%d\n", LENGTH/(WORD/8));
-        printf("m: ");
-        PrintCharArray(mask, LENGTH);
-        printf("c: ");
-        PrintCharArray(key1, LENGTH);
-        printf("k: ");
-        PrintCharArray(key2, LENGTH);
-        printf("r: ");
-        PrintCharArray(result, LENGTH);
-        #endif
-}
-
 /*
 	This Method performs a Mod addition of two arrays and places the result into
 	the third array result. It works at base Mod of MOD value found in DefineQ.h
@@ -101,6 +22,10 @@ void ModUnlock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  co
 */
 void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
+	Pointer k1,k2,r;
+
+	k1.p = (void *)key1;
+	
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
 	{
@@ -291,4 +216,84 @@ void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t *
 void OneWayCut(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
 	//TODO implement OneWayCut	
+}
+
+
+void ModLock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  const uint8_t *mask)
+{
+	uint32_t i = 0;
+	for(i; i < LENGTH; i+=WORD/8)
+	{
+                uint64_t carry = (*(uint64_t *)((key1+i)) & WORDMASK)
+				 & (*(uint64_t *)((key2+i)) & WORDMASK)
+                                 //& (uint64_t)MODMASK_WORD; 
+				 & (*(uint64_t *)((mask+i)) & WORDMASK);
+
+                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
+					^ (*(uint64_t *)((key2+i)) & WORDMASK);
+                carry = carry<<1;
+		
+                while(carry != 0)
+                {
+                        uint64_t temp_char = (*(uint64_t *)((result+i)) & WORDMASK)
+					     & carry
+				 	     & (*(uint64_t *)((mask+i)) & WORDMASK);
+					     //& (uint64_t)MODMASK_WORD;
+
+			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
+						     ^ carry;
+                        carry = temp_char << 1;
+                }
+        }
+	
+	#ifdef Primitive_p	
+        printf("ModLock iterations:%d\n", LENGTH/(WORD/8));
+	printf("m: ");
+        PrintCharArray(mask, LENGTH);
+	printf("p: ");
+        PrintCharArray(key1, LENGTH);
+	printf("k: ");
+        PrintCharArray(key2, LENGTH);
+	printf("c: ");
+        PrintCharArray(result, LENGTH);
+        #endif
+}
+void ModUnlock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  const uint8_t *mask)
+{
+        uint32_t i = 0;
+        for(i; i < LENGTH; i+=WORD/8)
+        {
+                uint64_t carry = (~*(uint64_t *)((key1+i)) & WORDMASK)
+                                 & (*(uint64_t *)((key2+i)) & WORDMASK)
+                                 //& (uint64_t)MODMASK_WORD; 
+                                 & (*(uint64_t *)((mask+i)) & WORDMASK);
+
+                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
+                                        ^ (*(uint64_t *)((key2+i)) & WORDMASK);
+                carry = carry<<1;
+
+                while(carry != 0)
+                {
+                        uint64_t temp_char = (~*(uint64_t *)((result+i)) & WORDMASK)
+                                             & carry
+                                             & (*(uint64_t *)((mask+i)) & WORDMASK);
+                                             //& (uint64_t)MODMASK_WORD;
+
+                        *(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
+                                                     ^ carry;
+                        carry = temp_char << 1;
+                }
+        }
+
+        #ifdef Primitive_p      
+        printf("ModUnlock iterations:%d\n", LENGTH/(WORD/8));
+        printf("m: ");
+        PrintCharArray(mask, LENGTH);
+        printf("c: ");
+        PrintCharArray(key1, LENGTH);
+        printf("k: ");
+        PrintCharArray(key2, LENGTH);
+        printf("r: ");
+        PrintCharArray(result, LENGTH);
+        #endif
 }
