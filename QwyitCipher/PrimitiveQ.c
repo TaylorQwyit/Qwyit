@@ -25,7 +25,33 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	Pointer k1,k2,r;
 
 	k1.p = (void *)key1;
-	
+	k2.p = (void *)key2;
+	r.p = (void *)result;
+//	/*	
+	uint32_t i = 0;
+	for(i; i < LENGTH; i+=WORD/8)
+	{
+                uint64_t carry = (*(uint64_t *)((k1.p+i)) & WORDMASK)
+				 & (*(uint64_t *)((k2.p+i)) & WORDMASK)
+                                 & (uint64_t)MODMASK_WORD; 
+
+                *(uint64_t *)(r.p+i) =  (*(uint64_t *)((k1.p+i)) & WORDMASK)
+					^ (*(uint64_t *)((k2.p+i)) & WORDMASK);
+                carry = carry<<1;
+		
+                while(carry != 0)
+                {
+                        uint64_t temp_char = (*(uint64_t *)((r.p+i)) & WORDMASK)
+					     & carry 
+					     & (uint64_t)MODMASK_WORD;
+
+			*(uint64_t *)((r.p+i)) =  (*(uint64_t *)((r.p+i)) & WORDMASK)
+						     ^ carry;
+                        carry = temp_char << 1;
+                }
+        }
+//	*/
+	/*
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
 	{
@@ -48,7 +74,7 @@ void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                         carry = temp_char << 1;
                 }
         }
-	
+	*/
 	#ifdef Primitive_p	
         printf("ModEncrypt iterations:%d\n", LENGTH/(WORD/8));
         PrintCharArray(key1, LENGTH);
