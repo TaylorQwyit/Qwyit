@@ -9,7 +9,8 @@
 void extract(const void * k, const void * a, void *r)
 {
         //#ifdef Primitive_Extract_p
-        printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d\n", MOD, MODMASK, MODPERBYTE, KEYMASK);
+        printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d WORDMASK:%d\n"
+	, MOD, MODMASK, MODPERBYTE, KEYMASK, WORDMASK);
         //#endif
 
         ConstPointer key,alphabet;

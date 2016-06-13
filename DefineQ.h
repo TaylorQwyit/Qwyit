@@ -1,7 +1,7 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 32 //bytes
+#define LENGTH 8 //bytes
 
 #define WORD 8 //8,16,32, or 64 bits 
 #define MOD 4 //1,2,4, or 8 bits
@@ -22,6 +22,8 @@
 #define WORDPERLENGTH (LENGTH / (WORD / 8))
 
 #define MODMASK ((1 << MOD)-1)
+#define KEYMASK ((LENGTH * 8/MOD)-1)
+#define WORD_MASK (1<<WORD)
 
 #if MOD == 1
 	#define MODMASK_WORD 0x0000000000000000
@@ -38,22 +40,22 @@
 #endif
 
 #if (WORD == 64)
- #define WORDMASK 0xFFFFFFFFFFFFFFFF
+ #define WORDMASK 6
  typedef struct{uint64_t * p;}Pointer;
  typedef struct{const uint64_t * p;}ConstPointer;
  typedef struct{uint64_t w;}Word;
 #elif (WORD == 32)
- #define WORDMASK 0xFFFFFFFF
+ #define WORDMASK 5
  typedef struct{uint32_t * p;}Pointer;
  typedef struct{const uint32_t * p;}ConstPointer;
  typedef struct{uint32_t w;}Word;
 #elif (WORD == 16)
- #define WORDMASK (1 << WORD)-1
+ #define WORDMASK 4
  typedef struct{uint16_t * p;}Pointer;
  typedef struct{const uint16_t * p;}ConstPointer;
  typedef struct{uint16_t w;}Word;
 #elif (WORD == 8)
- #define WORDMASK (1 << WORD)-1
+ #define WORDMASK 3
  typedef struct{uint8_t * p;}Pointer;
  typedef struct{const uint8_t * p;}ConstPointer;
  typedef struct{uint8_t w;}Word;
@@ -62,7 +64,6 @@
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)
 #define HASHMASK ( (1 << HASHSIZE) -1)
-#define KEYMASK ((LENGTH * 8/MOD)-1)
 
 #define BIGENDIAN (!*(uint8_t *)&(uint16_t){1})
 

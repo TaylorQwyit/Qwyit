@@ -24,7 +24,6 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	k1.p = key1;
 	k2.p = key2;
 	r.p = result;
-	
 
 	Word carry;
 	Word temp_carry;
@@ -72,7 +71,6 @@ void ModDecrypt(const void * key1, const void * key2, void * result)
         k1.p = key1;
         k2.p = key2;
         r.p = result;
-
 
         Word carry;
         Word temp_carry;
@@ -216,7 +214,7 @@ void OneWayCut(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 	//TODO implement OneWayCut	
 }
 
-
+//TODO FIX, update to use same structure as ModEncrypt, instead of WORDMASK value
 void ModLock(const uint8_t * key1, const uint8_t * key2, uint8_t * result,  const uint8_t *mask)
 {
 	uint32_t i = 0;
