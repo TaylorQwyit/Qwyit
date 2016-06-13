@@ -20,8 +20,6 @@
 	
 	TODO: make constant time, no timing channel leakage
 */
-
-
 void ModEncrypt(const void * key1, const void * key2, void * result)
 {
 	ConstPointer k1,k2;
@@ -97,8 +95,38 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 
 	TODO: make constant time, no timing channel leakage
 */
-void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
+void ModDecrypt(const void * key1, const void * key2, void * result)
 {
+
+        ConstPointer k1,k2;
+        Pointer r;
+
+        k1.p = key1;
+        k2.p = key2;
+        r.p = result;
+
+
+        Word carry;
+        Word temp_carry;
+        uint32_t i = 0;
+        for(i; i < LENGTH/ (WORD/8) ; i++)
+        {
+                carry.w = ~*(k1.p+i) & *(k2.p+i) & MODMASK_WORD;
+
+                *(r.p+i) =  *(k1.p+i) ^ *(k2.p+i);
+
+                carry.w = carry.w << 1;
+
+                while(carry.w != 0)
+                {
+                        temp_carry.w = ~*(r.p+i) & carry.w & MODMASK_WORD;
+                        *(r.p+i) = *(r.p+i) ^ carry.w;
+                        carry.w = temp_carry.w << 1;
+                }
+        }
+
+/*
+
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
 	{
@@ -121,7 +149,7 @@ void ModDecrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
                         carry = temp_char << 1;
                 }
         }
-
+*/
 	#ifdef Primitive_p	
         printf("ModDecrypt iterations:%d\n", LENGTH/(WORD/8));
         PrintCharArray(key1, LENGTH);

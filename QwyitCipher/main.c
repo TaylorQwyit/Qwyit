@@ -11,8 +11,8 @@ int main(void)
 
 
         Pointer k1  =  AllocBytes(LENGTH);
-        Pointer k2  =  MemoryAlloc(LENGTH);
-        Pointer r  =  MemoryAlloc(LENGTH);
+        Pointer k2  =  AllocBytes(LENGTH);
+        Pointer r  =  AllocBytes(LENGTH);
 
         uint32_t i;
         srand(23);
@@ -25,13 +25,13 @@ int main(void)
 	ModEncrypt(k1.p, k2.p, r.p);	
 
 
-	Pointer R = MemoryAlloc(LENGTH);
-	Pointer W = MemoryAlloc(LENGTH);
-	Pointer A = MemoryAlloc(LENGTH);
-	Pointer a1 = MemoryAlloc(LENGTH);
-	Pointer a2 = MemoryAlloc(LENGTH);
-	Pointer encrypted = MemoryAlloc(LENGTH);
-	Pointer decrypted = MemoryAlloc(LENGTH);
+	Pointer R = AllocBytes(LENGTH);
+	Pointer W = AllocBytes(LENGTH);
+	Pointer A = AllocBytes(LENGTH);
+	Pointer a1 = AllocBytes(LENGTH);
+	Pointer a2 = AllocBytes(LENGTH);
+	Pointer encrypted = AllocBytes(LENGTH);
+	Pointer decrypted = AllocBytes(LENGTH);
 
 	unsigned char message[32] = "This is a test of a Qwyit Cipher";
 	
@@ -45,11 +45,11 @@ int main(void)
 	unsigned char wTest[32] = {0x02, 0xBF, 0xE4, 0x91, 0xC6, 0x73, 0xA8, 0x55, 0x8A, 0x37, 0x6C, 0x19, 0x4E, 0xFB, 0x20, 0xDD, 0x02, 0xBF, 0xE4, 0x91, 0xC6, 0x73, 0xA8, 0x55, 0x8A, 0x37, 0x6C, 0x19, 0x4E, 0xFB, 0x20, 0xDD};
 
         ModEncrypt(EK, OR, R.p);
-        Combine(QK, R.p, a1.p, a2.p, A.p);
-        Extract(QK, A.p, W.p);
-        ModEncrypt(W.p, message, encrypted.p);
-        ModDecrypt(encrypted.p, W.p, decrypted.p);
-
+        //Combine(QK, R.p, a1.p, a2.p, A.p);
+        //Extract(QK, A.p, W.p);
+        ModEncrypt(R.p, message, encrypted.p);
+        ModDecrypt(encrypted.p, R.p, decrypted.p);
+/*
 	printf("Cipher Test\n");
 	printf("W(%d)\n", memcmp(R.p, rTest, LENGTH));
 	PrintCharArray(R.p, LENGTH);
@@ -59,7 +59,7 @@ int main(void)
 	PrintCharArray(wTest, LENGTH);
 	
 	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
-
+*/
 /*
 	printf("QwyitCipher: main\n");
 	Qstate state;
