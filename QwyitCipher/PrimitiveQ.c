@@ -14,10 +14,6 @@
 	change the WORD to corresponding processor size and replace uint64_t with
 	the corresponding processor size value.
 	
-	TODO: The bitwise & using WORDMASK is not necessary if WORD value matches the
-	uint64_t value typecast. To optimize further remove WORDMASK and replace uint64_t
-	with the matching processor word size (ie uint32_t for a 32 bit processor)
-	
 	TODO: make constant time, no timing channel leakage
 */
 void ModEncrypt(const void * key1, const void * key2, void * result)
@@ -33,7 +29,7 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	Word carry;
 	Word temp_carry;
 	uint32_t i = 0;
-	for(i; i < LENGTH/ (WORD/8) ; i++)
+	for(i; i < WORDPERLENGTH ; i++)
 	{
                 carry.w = *(k1.p+i) & *(k2.p+i) & MODMASK_WORD; 
 
@@ -49,30 +45,6 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
                 }
         }
 
-	/*
-	uint32_t i = 0;
-	for(i; i < LENGTH; i+=WORD/8)
-	{
-                uint64_t carry = (*(uint64_t *)((key1+i)) & WORDMASK)
-				 & (*(uint64_t *)((key2+i)) & WORDMASK)
-                                 & (uint64_t)MODMASK_WORD; 
-
-                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
-					^ (*(uint64_t *)((key2+i)) & WORDMASK);
-                carry = carry<<1;
-		
-                while(carry != 0)
-                {
-                        uint64_t temp_char = (*(uint64_t *)((result+i)) & WORDMASK)
-					     & carry 
-					     & (uint64_t)MODMASK_WORD;
-
-			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
-						     ^ carry;
-                        carry = temp_char << 1;
-                }
-        }
-	*/
 	#ifdef Primitive_p	
         printf("ModEncrypt iterations:%d\n", LENGTH/(WORD/8));
         PrintCharArray(key1, LENGTH);
@@ -89,10 +61,6 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	change the WORD to corresponding processor size and replace uint64_t with
 	the corresponding processor size value.
 	
-	TODO: The bitwise & using WORDMASK is not necessary if WORD value matches the
-	uint64_t value typecast. To optimize further remove WORDMASK and replace uint64_t
-	with the matching processor word size (ie uint32_t for a 32 bit processor)
-
 	TODO: make constant time, no timing channel leakage
 */
 void ModDecrypt(const void * key1, const void * key2, void * result)
@@ -108,8 +76,9 @@ void ModDecrypt(const void * key1, const void * key2, void * result)
 
         Word carry;
         Word temp_carry;
+
         uint32_t i = 0;
-        for(i; i < LENGTH/ (WORD/8) ; i++)
+        for(i; i < WORDPERLENGTH ; i++)
         {
                 carry.w = ~*(k1.p+i) & *(k2.p+i) & MODMASK_WORD;
 
@@ -125,31 +94,6 @@ void ModDecrypt(const void * key1, const void * key2, void * result)
                 }
         }
 
-/*
-
-	uint32_t i = 0;
-	for(i; i < LENGTH; i+=WORD/8)
-	{
-                uint64_t carry = (~*(uint64_t *)((key1+i)) & WORDMASK)
-				 & (*(uint64_t *)((key2+i)) & WORDMASK)
-                                 & (uint64_t)MODMASK_WORD; 
-
-                *(uint64_t *)(result+i) =  (*(uint64_t *)((key1+i)) & WORDMASK)
-					^ (*(uint64_t *)((key2+i)) & WORDMASK);
-                carry = carry<<1;
-		
-                while(carry != 0)
-                {
-                        uint64_t temp_char = (~*(uint64_t *)((result+i)) & WORDMASK)
-					     & carry 
-					     & (uint64_t)MODMASK_WORD;
-
-			*(uint64_t *)((result+i)) =  (*(uint64_t *)((result+i)) & WORDMASK)
-						     ^ carry;
-                        carry = temp_char << 1;
-                }
-        }
-*/
 	#ifdef Primitive_p	
         printf("ModDecrypt iterations:%d\n", LENGTH/(WORD/8));
         PrintCharArray(key1, LENGTH);

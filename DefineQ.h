@@ -3,7 +3,7 @@
 
 #define LENGTH 32 //bytes
 
-#define WORD 64 //8,16,32, or 64 bits 
+#define WORD 8 //8,16,32, or 64 bits 
 #define MOD 4 //1,2,4, or 8 bits
 #define TREE 8
 
@@ -13,14 +13,16 @@
 //#define Iteration_p
 
 #define Primitive_p
-//#define Primitive_Extract_p
+#define Primitive_Extract_p
 
 //******** No Changes Below Here ********
 #include <stdint.h>
 #include <stdlib.h>
 
+#define WORDPERLENGTH (LENGTH / (WORD / 8))
 
-#define MODMASK (1 << MOD)-1
+#define MODMASK ((1 << MOD)-1)
+
 #if MOD == 1
 	#define MODMASK_WORD 0x0000000000000000
 	#define MODPERBYTE 0x7
@@ -60,7 +62,7 @@
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)
 #define HASHMASK ( (1 << HASHSIZE) -1)
-#define KEYMASK (LENGTH * 8/MOD)-1
+#define KEYMASK ((LENGTH * 8/MOD)-1)
 
 #define BIGENDIAN (!*(uint8_t *)&(uint16_t){1})
 
