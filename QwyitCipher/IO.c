@@ -15,10 +15,10 @@ void PrintCharArray(const uint8_t * array, const uint32_t length)
         printf("\n");
 }
 
-void PrintArray(void * array, const uint32_t length)
+void PrintArray(const void * array, const uint32_t length)
 {
         uint32_t i;
-	Pointer a;
+	ConstPointer a;
 	a.p = array;
 	//printf("length:%d WORD%d loop:%d\n", length, WORD, length/WORD);
         for(i = 0; i < length*8/WORD; i++)

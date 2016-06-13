@@ -9,5 +9,5 @@
 #include <stdint.h>
 */
 void PrintCharArray(const uint8_t * a, const uint32_t len);
-void PrintArray(void * a, const uint32_t len);
+void PrintArray(const void * a, const uint32_t len);
 #endif

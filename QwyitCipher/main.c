@@ -6,6 +6,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void extract(const void * k, const void * a, void *r)
+{
+        //#ifdef Primitive_Extract_p
+        printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d\n", MOD, MODMASK, MODPERBYTE, KEYMASK);
+        //#endif
+
+        ConstPointer key,alphabet;
+        Pointer result;
+
+        key.p = k;
+        alphabet.p = a;
+        result.p = r;
+
+
+
+        int32_t wordIndex = 0;
+        uint32_t index = 0;
+        while(wordIndex < WORDPERLENGTH)
+        {
+           *(result.p+wordIndex) = 0;
+
+           int32_t modIndex = WORD - MOD;
+           for(modIndex; modIndex >= 0; modIndex -= MOD)
+           {
+              index = (index +  ((*(key.p+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
+              uint32_t bitPosition = index*MOD;
+              uint8_t alphabetChar = *(alphabet.p + (bitPosition>>3));
+              uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
+
+              //#ifdef Primitive_Extract_p
+              printf("index:%d current:%x\n", index, ((*(key.p+wordIndex)>>modIndex)&MODMASK));
+              printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
+              printf("resultChar:%x bitShift:%x\n", resultChar,(~bitPosition&MODPERBYTE));
+              //#endif
+
+              *(result.p+wordIndex) |= resultChar << modIndex;
+              index++;
+           }
+           wordIndex++;
+        }
+
+	#ifdef Primitive_p      
+        printf("New Extract\n");
+        PrintArray(key.p, LENGTH);
+        PrintArray(alphabet.p, LENGTH);
+        PrintArray(result.p, LENGTH);
+        #endif
+
+}
+
 int main(void)
 {
 
@@ -22,8 +72,8 @@ int main(void)
                 *(k2.p+i) = ((uint64_t)rand() << 32) | rand();
         }
 
+	extract(k1.p, k2.p, r.p);
 	Extract(k1.p, k2.p, r.p);	
-
 /*
 	Pointer R = AllocBytes(LENGTH);
 	Pointer W = AllocBytes(LENGTH);
