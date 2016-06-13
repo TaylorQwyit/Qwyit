@@ -22,11 +22,12 @@
 */
 void ModEncrypt(const void * key1, const void * key2, void * result)
 {
-	Pointer k1,k2,r;
+	ConstPointer k1,k2;
+	Pointer r;
 
-	k1.p = (void *)key1;
-	k2.p = (void *)key2;
-	r.p = (void *)result;
+	k1.p = key1;
+	k2.p = key2;
+	r.p = result;
 //	/*	
 	uint32_t i = 0;
 	for(i; i < LENGTH/ (WORD/8) ; i++)

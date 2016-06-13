@@ -22,6 +22,7 @@
 #if (WORD == 64)
  #define WORDMASK 0xFFFFFFFFFFFFFFFF
  typedef struct{uint64_t * p;}Pointer;
+ typedef struct{const uint64_t * p;}ConstPointer;
  static inline uint64_t * MemAlloc(const uint32_t charSize)
  {return (uint64_t *)malloc(sizeof(uint8_t)*charSize);}
 #elif (WORD == 32)
