@@ -20,7 +20,7 @@
 	
 	TODO: make constant time, no timing channel leakage
 */
-void ModEncrypt(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
+void ModEncrypt(const void * key1, const void * key2, void * result)
 {
 	Pointer k1,k2,r;
 

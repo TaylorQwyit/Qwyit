@@ -9,7 +9,6 @@
 int main(void)
 {
 
-
 	Pointer k1,k2,r;
 
         k1.p  =  MemAlloc(LENGTH);
@@ -25,7 +24,6 @@ int main(void)
         }
 
 	ModEncrypt(k1.p,k2.p,r.p);	
-		
 /*
 	printf("QwyitCipher: main\n");
 	Qstate state;
