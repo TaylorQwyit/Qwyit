@@ -20,6 +20,8 @@ typedef struct
         uint16_t iteration;
 } Qstate;
 
+
+
 void GetNonce(uint8_t * nonce, const uint32_t seed);
 
 void InitQstate(Qstate *s, uint32_t seed);
@@ -29,5 +31,6 @@ void FreeQstate(Qstate * state);
 
 void Iteration(Qstate *s);
 
+Pointer MemoryAlloc(const uint32_t charSize);
 
 #endif

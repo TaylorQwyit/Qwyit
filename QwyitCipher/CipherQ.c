@@ -8,6 +8,23 @@
 #include <stdio.h>
 #include <string.h>
 
+
+Pointer MemoryAlloc(const uint32_t charSize)
+{
+	Pointer memPointer;
+	#if (WORD == 64)
+	memPointer.p = (uint64_t *)malloc(sizeof(uint8_t)*LENGTH);
+	#elif (WORD == 32)
+	memPointer.p = (uint32_t *)malloc(sizeof(uint8_t)*LENGTH);
+	#elif (WORD == 16)
+	memPointer.p = (uint16_t *)malloc(sizeof(uint8_t)*LENGTH);
+	#elif (WORD == 8)
+	memPointer.p = (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);
+	#endif
+	return memPointer;
+}
+
+
 void GetNonce(uint8_t * nonce, const uint32_t seed)
 {
 
