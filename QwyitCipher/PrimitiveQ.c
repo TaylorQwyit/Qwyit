@@ -37,7 +37,7 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	uint32_t i = 0;
 	for(i; i < LENGTH/ (WORD/8) ; i++)
 	{
-                carry.w = *(k1.p+i) & *(k2.p+i) & 0x77; 
+                carry.w = *(k1.p+i) & *(k2.p+i) & MODMASK_WORD; 
 
                 *(r.p+i) =  *(k1.p+i) ^ *(k2.p+i);
 
@@ -45,7 +45,7 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 		
                 while(carry.w != 0)
                 {
-                        temp_carry.w = *(r.p+i) & carry.w & 0x77;
+                        temp_carry.w = *(r.p+i) & carry.w & MODMASK_WORD;
 			*(r.p+i) = *(r.p+i) ^ carry.w;
                         carry.w = temp_carry.w << 1;
                 }

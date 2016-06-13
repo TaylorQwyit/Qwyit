@@ -39,28 +39,22 @@
  #define WORDMASK 0xFFFFFFFFFFFFFFFF
  typedef struct{uint64_t * p;}Pointer;
  typedef struct{const uint64_t * p;}ConstPointer;
- static inline uint64_t * MemAlloc(const uint32_t charSize)
- {return (uint64_t *)malloc(sizeof(uint8_t)*charSize);}
- //uint64_t WORDMask = MODMASK_WORD;
+ typedef struct{uint64_t w;}Word;
 #elif (WORD == 32)
  #define WORDMASK 0xFFFFFFFF
  typedef struct{uint32_t * p;}Pointer;
  typedef struct{const uint32_t * p;}ConstPointer;
- static inline uint32_t * MemAlloc(const uint32_t charSize)
- {return (uint32_t *)malloc(sizeof(uint8_t)*charSize);}
+ typedef struct{uint32_t w;}Word;
 #elif (WORD == 16)
  #define WORDMASK (1 << WORD)-1
  typedef struct{uint16_t * p;}Pointer;
  typedef struct{const uint16_t * p;}ConstPointer;
- static inline uint16_t * MemAlloc(const uint32_t charSize)
- {return (uint16_t *)malloc(sizeof(uint8_t)*charSize);}
+ typedef struct{uint16_t w;}Word;
 #elif (WORD == 8)
  #define WORDMASK (1 << WORD)-1
  typedef struct{uint8_t * p;}Pointer;
  typedef struct{const uint8_t * p;}ConstPointer;
  typedef struct{uint8_t w;}Word;
- static inline uint8_t * MemAlloc(const uint32_t charSize)
- {return (uint8_t *)malloc(sizeof(uint8_t)*charSize);}
 #endif
 
 #define MAPSIZE (BLOCKSIZE / 8)
@@ -69,5 +63,19 @@
 #define KEYMASK (LENGTH * 8/MOD)-1
 
 #define BIGENDIAN (!*(uint8_t *)&(uint16_t){1})
+
+static inline Pointer AllocPointer(const uint32_t size)
+{
+  Pointer memPointer;
+  memPointer.p =  malloc(size*sizeof(*memPointer.p) );
+  return memPointer;
+}
+
+static inline Pointer AllocBytes(const uint32_t size)
+{
+  Pointer memPointer;
+  memPointer.p =  malloc(size*sizeof(uint8_t));
+  return memPointer;
+}
 
 #endif

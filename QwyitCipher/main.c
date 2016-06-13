@@ -10,7 +10,7 @@ int main(void)
 {
 
 
-        Pointer k1  =  MemoryAlloc(LENGTH);
+        Pointer k1  =  AllocBytes(LENGTH);
         Pointer k2  =  MemoryAlloc(LENGTH);
         Pointer r  =  MemoryAlloc(LENGTH);
 
@@ -49,6 +49,16 @@ int main(void)
         Extract(QK, A.p, W.p);
         ModEncrypt(W.p, message, encrypted.p);
         ModDecrypt(encrypted.p, W.p, decrypted.p);
+
+	printf("Cipher Test\n");
+	printf("W(%d)\n", memcmp(R.p, rTest, LENGTH));
+	PrintCharArray(R.p, LENGTH);
+	PrintCharArray(rTest, LENGTH);
+	printf("R(%d)\n", memcmp(W.p, wTest, LENGTH));
+	PrintCharArray(W.p, LENGTH);
+	PrintCharArray(wTest, LENGTH);
+	
+	printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
 
 /*
 	printf("QwyitCipher: main\n");
