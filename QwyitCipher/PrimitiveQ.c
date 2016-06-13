@@ -32,21 +32,22 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	r.p = result;
 	
 
-	Pointer carry, temp_carry;
+	Word carry;
+	Word temp_carry;
 	uint32_t i = 0;
 	for(i; i < LENGTH/ (WORD/8) ; i++)
 	{
-                *carry.p = *(k1.p+i) & *(k2.p+i) & MODMASK_WORD; 
+                carry.w = *(k1.p+i) & *(k2.p+i) & 0x77; 
 
                 *(r.p+i) =  *(k1.p+i) ^ *(k2.p+i);
 
-                *carry.p = *carry.p << 1;
+                carry.w = carry.w << 1;
 		
-                while(*carry.p != 0)
+                while(carry.w != 0)
                 {
-                        *temp_carry.p = *(r.p+i) & *carry.p & MODMASK_WORD;
-			*(r.p+i) = *(r.p+i) ^ *carry.p;
-                        *carry.p = *temp_carry.p << 1;
+                        temp_carry.w = *(r.p+i) & carry.w & 0x77;
+			*(r.p+i) = *(r.p+i) ^ carry.w;
+                        carry.w = temp_carry.w << 1;
                 }
         }
 

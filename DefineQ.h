@@ -3,7 +3,7 @@
 
 #define LENGTH 32 //bytes
 
-#define WORD 64 //8,16,32, or 64 bits 
+#define WORD 8 //8,16,32, or 64 bits 
 #define MOD 4 //1,2,4, or 8 bits
 #define TREE 8
 
@@ -58,6 +58,7 @@
  #define WORDMASK (1 << WORD)-1
  typedef struct{uint8_t * p;}Pointer;
  typedef struct{const uint8_t * p;}ConstPointer;
+ typedef struct{uint8_t w;}Word;
  static inline uint8_t * MemAlloc(const uint32_t charSize)
  {return (uint8_t *)malloc(sizeof(uint8_t)*charSize);}
 #endif
