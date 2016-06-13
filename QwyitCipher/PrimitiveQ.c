@@ -20,6 +20,8 @@
 	
 	TODO: make constant time, no timing channel leakage
 */
+
+
 void ModEncrypt(const void * key1, const void * key2, void * result)
 {
 	ConstPointer k1,k2;
@@ -31,26 +33,27 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	
 //	/*
 
-	//Pointer carry;	
+	Pointer carry, temp_carry;
+
 	uint32_t i = 0;
 	for(i; i < LENGTH/ (WORD/8) ; i++)
 	{
-                uint64_t carry = *(k1.p+i)
+                *carry.p = *(k1.p+i)
 				 & *(k2.p+i)
-                                 & (uint64_t)MODMASK_WORD; 
+                                 & MODMASK_WORD; 
 
                 *(r.p+i) =  *(k1.p+i) ^ *(k2.p+i);
 
-                carry = carry<<1;
+                *carry.p = *carry.p << 1;
 		
-                while(carry != 0)
+                while(*carry.p != 0)
                 {
-                        uint64_t temp_char = *(r.p+i)
-					     & carry 
-					     & (uint64_t)MODMASK_WORD;
+                        *temp_carry.p = *(r.p+i)
+					     & *carry.p 
+					     & MODMASK_WORD;
 
-			*(r.p+i) = *(r.p+i) ^ carry;
-                        carry = temp_char << 1;
+			*(r.p+i) = *(r.p+i) ^ *carry.p;
+                        *carry.p = *temp_carry.p << 1;
                 }
         }
 //	*/

@@ -19,12 +19,29 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+
+#define MODMASK (1 << MOD)-1
+#if MOD == 1
+	#define MODMASK_WORD 0x0000000000000000
+	#define MODPERBYTE 0x7
+#elif MOD == 2
+	#define MODMASK_WORD 0x5555555555555555
+	#define MODPERBYTE 0x6
+#elif MOD == 4
+	#define MODMASK_WORD 0x7777777777777777
+	#define MODPERBYTE 0x4	
+#elif MOD == 8
+	#define MODMASK_WORD 0x7F7F7F7F7F7F7F7F
+	#define MODPERBYTE 0x0	
+#endif
+
 #if (WORD == 64)
  #define WORDMASK 0xFFFFFFFFFFFFFFFF
  typedef struct{uint64_t * p;}Pointer;
  typedef struct{const uint64_t * p;}ConstPointer;
  static inline uint64_t * MemAlloc(const uint32_t charSize)
  {return (uint64_t *)malloc(sizeof(uint8_t)*charSize);}
+ //uint64_t WORDMask = MODMASK_WORD;
 #elif (WORD == 32)
  #define WORDMASK 0xFFFFFFFF
  typedef struct{uint32_t * p;}Pointer;
@@ -43,21 +60,6 @@
  typedef struct{const uint8_t * p;}ConstPointer;
  static inline uint8_t * MemAlloc(const uint32_t charSize)
  {return (uint8_t *)malloc(sizeof(uint8_t)*charSize);}
-#endif
-
-#define MODMASK (1 << MOD)-1
-#if MOD == 1
-	#define MODMASK_WORD 0x0000000000000000
-	#define MODPERBYTE 0x7
-#elif MOD == 2
-	#define MODMASK_WORD 0x5555555555555555
-	#define MODPERBYTE 0x6
-#elif MOD == 4
-	#define MODMASK_WORD 0x7777777777777777
-	#define MODPERBYTE 0x4	
-#elif MOD == 8
-	#define MODMASK_WORD 0x7F7F7F7F7F7F7F7F
-	#define MODPERBYTE 0x0	
 #endif
 
 #define MAPSIZE (BLOCKSIZE / 8)

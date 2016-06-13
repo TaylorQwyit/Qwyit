@@ -24,6 +24,8 @@ int main(void)
         }
 
 	ModEncrypt(k1.p,k2.p,r.p);	
+	ModEncrypt(k1.p,k1.p,r.p);	
+	ModEncrypt(k2.p,k2.p,r.p);	
 /*
 	printf("QwyitCipher: main\n");
 	Qstate state;
