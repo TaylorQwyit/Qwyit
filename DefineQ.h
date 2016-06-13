@@ -3,7 +3,7 @@
 
 #define LENGTH 32 //bytes
 
-#define WORD 32 //8,16,32, or 64 bits 
+#define WORD 8 //8,16,32, or 64 bits 
 #define MOD 4 //1,2,4, or 8 bits
 #define TREE 8
 

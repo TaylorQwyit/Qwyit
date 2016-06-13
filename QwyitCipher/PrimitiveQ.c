@@ -28,7 +28,36 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
 	k1.p = key1;
 	k2.p = key2;
 	r.p = result;
-//	/*	
+	
+//	/*
+
+	//Pointer carry;	
+	uint32_t i = 0;
+	for(i; i < LENGTH/ (WORD/8) ; i++)
+	{
+                uint64_t carry = *(k1.p+i)
+				 & *(k2.p+i)
+                                 & (uint64_t)MODMASK_WORD; 
+
+                *(r.p+i) =  *(k1.p+i) ^ *(k2.p+i);
+
+                carry = carry<<1;
+		
+                while(carry != 0)
+                {
+                        uint64_t temp_char = *(r.p+i)
+					     & carry 
+					     & (uint64_t)MODMASK_WORD;
+
+			*(r.p+i) = *(r.p+i) ^ carry;
+                        carry = temp_char << 1;
+                }
+        }
+//	*/
+
+
+
+	/*	
 	uint32_t i = 0;
 	for(i; i < LENGTH/ (WORD/8) ; i++)
 	{
@@ -51,7 +80,8 @@ void ModEncrypt(const void * key1, const void * key2, void * result)
                         carry = temp_char << 1;
                 }
         }
-//	*/
+	*/
+
 	/*
 	uint32_t i = 0;
 	for(i; i < LENGTH; i+=WORD/8)
