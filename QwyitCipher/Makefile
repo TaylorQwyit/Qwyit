@@ -4,9 +4,9 @@ DEPS = ../DefineQ.h IO.h PrimitiveQ.h CipherQ.h
 OBJ = IO.o PrimitiveQ.o CipherQ.o main.o 
 
 %.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -g -c -o $@ $< $(CFLAGS)
 qwyit: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS)
+	gcc -g -o $@ $^ $(CFLAGS)
 	rm *.o
 .PHONY: clean
 
