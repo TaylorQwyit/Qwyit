@@ -24,26 +24,26 @@ void extract(const void * k, const void * a, void *r)
 
         int32_t wordIndex = 0;
         uint32_t index = 0;
+	int32_t prevIndex = -1;
         while(wordIndex < WORDPERLENGTH)
         {
            *(result.p+wordIndex) = 0;
 
            int32_t modIndex = WORD - MOD;
-	   int32_t prevIndex = -1;
 	   Word alphabetChar;
 	   Word resultChar;
            for(modIndex; modIndex >= 0; modIndex -= MOD)
            {
               index = (index +  ((*(key.p+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
               int32_t bitPosition = index*MOD;
-	      if(bitPosition>>WORDMASK != prevIndex)
+	      //if(bitPosition>>WORDMASK != prevIndex)
 	      {
 		
                 #ifdef Primitive_Extract_p
 		printf("NEW word ");
                 #endif
 		prevIndex = bitPosition >> WORDMASK;
-		alphabetChar.w = *(alphabet.p + (bitPosition>>prevIndex));
+		alphabetChar.w = *(alphabet.p + prevIndex);
 	      }
               resultChar.w = (alphabetChar.w >> (~bitPosition&MPB) )&MODMASK;
 
@@ -85,11 +85,12 @@ int main(void)
         }
 
 	extract(k1.p, k2.p, r.p);
+	Extract(k1.p, k2.p, r.p);
 	uint8_t t1[8] = { 0x3d, 0xfa, 0xc8, 0x9e, 0x47, 0x69, 0x2c, 0xde };
 	uint8_t t2[8] = { 0x43, 0x6d, 0x78, 0x55, 0x33, 0xea, 0x88, 0xfb };
 	uint8_t tr[8];
 
-	Extract(t1, t2, tr);	
+	//Extract(t1, t2, tr);	
 /*
 	Pointer R = AllocBytes(LENGTH);
 	Pointer W = AllocBytes(LENGTH);
