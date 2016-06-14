@@ -3,8 +3,8 @@
 
 #define LENGTH 8 //bytes
 
-#define WORD 8 //8,16,32, or 64 bits 
-#define MOD 8 //1,2,4, or 8 bits
+#define WORD 16 //8,16,32, or 64 bits 
+#define MOD 4 //1,2,4, or 8 bits
 #define TREE 8
 
 #define MESSAGESIZE 128 //in Bits
@@ -22,7 +22,7 @@
 #define WORDPERLENGTH (LENGTH / (WORD / 8))
 
 #define MODMASK ((1 << MOD)-1)
-#define KEYMASK ((LENGTH * WORD/MOD)-1)
+#define KEYMASK ((LENGTH * 8/MOD)-1)
 
 #if MOD == 1
 	#define MODMASK_WORD 0x0000000000000000
