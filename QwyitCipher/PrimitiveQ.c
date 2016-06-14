@@ -111,46 +111,66 @@ use uint64_t values and then mod according to MODMASK. This will result in
 the same behavior as the ModEncrypt methods. Allowing for replacement of
 uintXX_t with the processor word 
 */
-void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
+void Extract(const void * k, const void * a, void *r)
 {
-
-	#ifdef Primitive_Extract_p
-	printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d\n", MOD, MODMASK, MODPERBYTE, KEYMASK);
-	#endif
-
-	int32_t wordIndex = 0;
-	uint32_t index = 0;
-	while(wordIndex < LENGTH)
-	{
-	   *(result+wordIndex) = 0;
-
-	   int32_t modIndex = 8 - MOD;
-	   for(modIndex; modIndex >= 0; modIndex -= MOD)
-	   {
-	      index = (index +  ((*(key+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
-	      uint32_t bitPosition = index*MOD;
-	      uint8_t alphabetChar = *(alphabet + (bitPosition>>3));
-	      uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
-	      
-	      #ifdef Primitive_Extract_p
-	      printf("index:%d current:%x\n", index, ((*(key+wordIndex)>>modIndex)&MODMASK));
-	      printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar);
-	      printf("resultChar:%x bitShift:%x\n", resultChar,(~bitPosition&MODPERBYTE));
-	      #endif
-
-	      *(result+wordIndex) |= resultChar << modIndex;
-      	      index++;
-	   }
-	   wordIndex++;
-	}
-
-	#ifdef Primitive_p	
-        printf("Extract\n");
-        PrintCharArray(key, LENGTH);
-        PrintCharArray(alphabet, LENGTH);
-        PrintCharArray(result, LENGTH);
+        #ifdef Primitive_Extract_p
+        printf("MOD:%d MODMASK:%x KEYMASK:%d WORDMASK:%d MPB:%x\n"
+        , MOD, MODMASK, KEYMASK, WORDMASK, MPB);
         #endif
+        ConstPointer key,alphabet;
+        Pointer result;
+
+        key.p = k;
+        alphabet.p = a;
+        result.p = r;
+
+        int32_t wordIndex = 0;
+        uint32_t index = 0;
+        int32_t prevIndex = -1;
+        while(wordIndex < WORDPERLENGTH)
+        {
+           *(result.p+wordIndex) = 0;
+
+           int32_t modIndex = WORD - MOD;
+           Word alphabetChar;
+           Word resultChar;
+           for(modIndex; modIndex >= 0; modIndex -= MOD)
+           {
+              index = (index +  ((*(key.p+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
+              int32_t bitPosition = index*MOD;
+              if(bitPosition>>WORDMASK != prevIndex)
+              {
+                
+                #ifdef Primitive_Extract_p
+                printf("New word ");
+                #endif
+                prevIndex = bitPosition >> WORDMASK;
+                alphabetChar.w = *(alphabet.p + prevIndex);
+              }
+              resultChar.w = (alphabetChar.w >> (~bitPosition&MPB) )&MODMASK;
+
+              #ifdef Primitive_Extract_p
+              printf("index:%d current:%x\n", index, ((*(key.p+wordIndex)>>modIndex)&MODMASK));
+              printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar.w);
+              printf("resultChar:%x bitShift:%d\n", resultChar.w,(~bitPosition&MPB));
+              #endif
+
+              *(result.p+wordIndex) |= resultChar.w << modIndex;
+              index++;
+           }
+           wordIndex++;
+        }
+
+        #ifdef Primitive_p      
+        printf("Extract\n");
+        PrintArray(key.p, LENGTH);
+        PrintArray(alphabet.p, LENGTH);
+        PrintArray(result.p, LENGTH);
+        #endif
+
 }
+
+
 
 void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t * a2, uint8_t *result)
 {

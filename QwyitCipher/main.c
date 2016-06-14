@@ -5,22 +5,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-void extract(const void * k, const void * a, void *r)
+/*
+void Extract(const void * k, const void * a, void *r)
 {
         #ifdef Primitive_Extract_p
         printf("MOD:%d MODMASK:%x KEYMASK:%d WORDMASK:%d MPB:%x\n"
 	, MOD, MODMASK, KEYMASK, WORDMASK, MPB);
         #endif
-
         ConstPointer key,alphabet;
         Pointer result;
 
         key.p = k;
         alphabet.p = a;
         result.p = r;
-
-
 
         int32_t wordIndex = 0;
         uint32_t index = 0;
@@ -60,13 +57,14 @@ void extract(const void * k, const void * a, void *r)
         }
 
 	#ifdef Primitive_p      
-        printf("New Extract\n");
+        printf("Extract\n");
         PrintArray(key.p, LENGTH);
         PrintArray(alphabet.p, LENGTH);
         PrintArray(result.p, LENGTH);
         #endif
 
 }
+*/
 
 int main(void)
 {
@@ -84,7 +82,7 @@ int main(void)
                 *(k2.p+i) = ((uint64_t)rand() << 32) | rand();
         }
 
-	extract(k1.p, k2.p, r.p);
+	//extract(k1.p, k2.p, r.p);
 	//Extract(k1.p, k2.p, r.p);
 	uint8_t t1[32] = { 0x5d, 0x21, 0x66, 0x0e, 0x3d, 0xfa, 0xc8, 0x9e, 0x3b, 0x43, 0xab, 0x98, 0x47, 0x69, 0x2c, 0xde, 0x40, 0x28, 0xf2, 0xef, 0x75, 0xfa, 0x8a, 0x27, 0x59, 0x87, 0xd7, 0xdc, 0x14, 0x34, 0xe6, 0xd3 };
 	uint8_t t2[32] = { 0x5c, 0x52, 0x31, 0xae, 0x3a, 0xd9, 0x06, 0x7e, 0x06, 0x9f, 0x24, 0x3a, 0x51, 0x09, 0x44, 0x5b, 0x0f, 0x04, 0x0c, 0xf9, 0x43, 0x6d, 0x78, 0x55, 0x0a, 0xd6, 0xa5, 0x34, 0x33, 0xea, 0x88, 0xfb };
