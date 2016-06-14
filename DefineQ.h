@@ -3,8 +3,8 @@
 
 #define LENGTH 16 //bytes
 
-#define WORD 64 //8,16,32, or 64 bits 
-#define MOD 1 //1,2,4,8,16,32, or 64 bits
+#define WORD 8 //8,16,32, or 64 bits 
+#define MOD 8 //1,2,4,8,16,32, or 64 bits
 #define TREE 8
 
 #define MESSAGESIZE 128 //in Bits
