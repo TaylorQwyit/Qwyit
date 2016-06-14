@@ -1,10 +1,10 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 32 //bytes
+#define LENGTH 16 //bytes
 
 #define WORD 64 //8,16,32, or 64 bits 
-#define MOD 4 //1,2,4,8,16,32, or 64 bits
+#define MOD 1 //1,2,4,8,16,32, or 64 bits
 #define TREE 8
 
 #define MESSAGESIZE 128 //in Bits
@@ -26,29 +26,25 @@
 
 #if MOD == 1
 	#define MODMASK_WORD 0x0000000000000000
-	#define MODPERBYTE 0x7
-	#define MOD_PER_BYTE 0x7F
+	#define MPW 0x7F
 #elif MOD == 2
 	#define MODMASK_WORD 0x5555555555555555
-	#define MODPERBYTE 0x6
-	#define MOD_PER_BYTE 0x7E
+	#define MPW 0x7E
 #elif MOD == 4
 	#define MODMASK_WORD 0x7777777777777777
-	#define MODPERBYTE 0x4	
-	#define MOD_PER_BYTE 0x7C
+	#define MPW 0x7C
 #elif MOD == 8
 	#define MODMASK_WORD 0x7F7F7F7F7F7F7F7F
-	#define MODPERBYTE 0x0	
-	#define MOD_PER_BYTE 0x78
+	#define MPW 0x78
 #elif MOD == 16
 	#define MODMASK_WORD 0x7FFF7FFF7FFF7FFF
-	#define MOD_PER_BYTE 0x70
+	#define MPW 0x70
 #elif MOD == 32
 	#define MODMASK_WORD 0x7FFFFFFF7FFFFFFF
-	#define MOD_PER_BYTE 0x60
+	#define MPW 0x60
 #elif MOD == 64
 	#define MODMASK_WORD 0x7FFFFFFFFFFFFFFF
-	#define MOD_PER_BYTE 0x40
+	#define MPW 0x40
 #endif
 
 #if (WORD == 64)
@@ -73,7 +69,7 @@
  typedef struct{uint8_t w;}Word;
 #endif
 
-#define MPB (((1 << WORDMASK) - 1) & MOD_PER_BYTE)
+#define MODPERWORD (((1 << WORDMASK) - 1) & MPW)
 
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)

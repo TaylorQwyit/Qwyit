@@ -114,8 +114,8 @@ uintXX_t with the processor word
 void Extract(const void * k, const void * a, void *r)
 {
         #ifdef Primitive_Extract_p
-        printf("MOD:%d MODMASK:%x KEYMASK:%d WORDMASK:%d MPB:%x\n"
-        , MOD, MODMASK, KEYMASK, WORDMASK, MPB);
+        printf("MOD:%d MODMASK:%x KEYMASK:%d WORDMASK:%d MODPERWORD:%x\n"
+        , MOD, MODMASK, KEYMASK, WORDMASK, MODPERWORD);
         #endif
         ConstPointer key,alphabet;
         Pointer result;
@@ -147,12 +147,12 @@ void Extract(const void * k, const void * a, void *r)
                 prevIndex = bitPosition >> WORDMASK;
                 alphabetChar.w = *(alphabet.p + prevIndex);
               }
-              resultChar.w = (alphabetChar.w >> (~bitPosition&MPB) )&MODMASK;
+              resultChar.w = (alphabetChar.w >> (~bitPosition&MODPERWORD) )&MODMASK;
 
               #ifdef Primitive_Extract_p
               printf("index:%d current:%x\n", index, ((*(key.p+wordIndex)>>modIndex)&MODMASK));
               printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar.w);
-              printf("resultChar:%x bitShift:%d\n", resultChar.w,(~bitPosition&MPB));
+              printf("resultChar:%x bitShift:%d\n", resultChar.w,(~bitPosition&MODPERWORD));
               #endif
 
               *(result.p+wordIndex) |= resultChar.w << modIndex;

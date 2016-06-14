@@ -82,9 +82,10 @@ int main(void)
                 *(k2.p+i) = ((uint64_t)rand() << 32) | rand();
         }
 
+	Extract(k1.p, k2.p, r.p);
 
 
-	
+/*	
 	Pointer R = AllocBytes(LENGTH);
 	Pointer W = AllocBytes(LENGTH);
 	Pointer A = AllocBytes(LENGTH);
@@ -119,7 +120,7 @@ int main(void)
 	PrintCharArray(wTest, LENGTH);
 	
 	//printf("Decrypted Message(%d)\n", memcmp(decrypted, message, LENGTH));
-
+*/
 
 /*
 	printf("QwyitCipher: main\n");
