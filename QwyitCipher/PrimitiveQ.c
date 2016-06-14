@@ -172,7 +172,7 @@ void Extract(const void * k, const void * a, void *r)
 
 
 
-void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t * a2, uint8_t *result)
+void Combine(const void * key1, const void * key2, void * a1, void * a2, void *result)
 {
 
         
@@ -185,9 +185,9 @@ void Combine(const uint8_t * key1, const uint8_t * key2, uint8_t * a1, uint8_t *
 
 	#ifdef Primitive_p	
         printf("Combine\n");
-        PrintCharArray(key1, LENGTH);
-        PrintCharArray(key2, LENGTH);
-        PrintCharArray(result, LENGTH);
+        PrintArray(key1, LENGTH);
+        PrintArray(key2, LENGTH);
+        PrintArray(result, LENGTH);
         #endif
 }
 
