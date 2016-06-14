@@ -1,10 +1,10 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 8 //bytes
+#define LENGTH 32 //bytes
 
-#define WORD 8 //8,16,32, or 64 bits 
-#define MOD 4 //1,2,4, or 8 bits
+#define WORD 64 //8,16,32, or 64 bits 
+#define MOD 4 //1,2,4,8,16,32, or 64 bits
 #define TREE 8
 
 #define MESSAGESIZE 128 //in Bits
