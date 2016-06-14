@@ -144,44 +144,6 @@ void Extract(const uint8_t * key, const uint8_t * alphabet, uint8_t *result)
 	   wordIndex++;
 	}
 
-/*	
-	uint32_t i;
-	uint32_t upperIndex = 0;
-	uint32_t lowerIndex = 0;
-
-        for(i = 0; i < LENGTH; i++)
-        {
-
-                upperIndex = (lowerIndex + (uint8_t)(key[i]>>4) ) & KEYMASK;
-		
-		//printf("index upper:%d\n", upperIndex);
-                if((uint32_t)(upperIndex&0x1) == 0)
-                {
-                        result[i] = alphabet[(uint32_t)(upperIndex>>1)] & 0xF0;
-                }
-                else
-                {
-                        result[i] = alphabet[(uint32_t)(upperIndex>>1)] << 4;
-                }
-
-                upperIndex++;
-                lowerIndex = (upperIndex + (uint8_t)(key[i]&0xF) ) & KEYMASK;
-                
-		//printf("index lower:%d\n", lowerIndex);
-                if((uint32_t)(lowerIndex&0x1) != 0)
-                {
-                        result[i] = result[i] | (alphabet[(uint32_t)(lowerIndex>>1)] & 0xF);
-                }
-                else
-                {
-
-                        result[i] = result[i] | (alphabet[(uint32_t)(lowerIndex>>1)] >> 4);
-                }
-
-                lowerIndex++;
-        }
-*/
-
 	#ifdef Primitive_p	
         printf("Extract\n");
         PrintCharArray(key, LENGTH);

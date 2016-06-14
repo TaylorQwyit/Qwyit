@@ -8,10 +8,10 @@
 
 void extract(const void * k, const void * a, void *r)
 {
-        //#ifdef Primitive_Extract_p
+        #ifdef Primitive_Extract_p
         printf("MOD:%d MODMASK:%x KEYMASK:%d WORDMASK:%d MPB:%x\n"
 	, MOD, MODMASK, KEYMASK, WORDMASK, MPB);
-        //#endif
+        #endif
 
         ConstPointer key,alphabet;
         Pointer result;
@@ -29,21 +29,29 @@ void extract(const void * k, const void * a, void *r)
            *(result.p+wordIndex) = 0;
 
            int32_t modIndex = WORD - MOD;
-	   int32_t prevPosition = -1;
+	   int32_t prevIndex = -1;
 	   Word alphabetChar;
 	   Word resultChar;
            for(modIndex; modIndex >= 0; modIndex -= MOD)
            {
               index = (index +  ((*(key.p+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
               int32_t bitPosition = index*MOD;
-              alphabetChar.w = *(alphabet.p + (bitPosition>>WORDMASK));
+	      if(bitPosition>>WORDMASK != prevIndex)
+	      {
+		
+                #ifdef Primitive_Extract_p
+		printf("NEW word ");
+                #endif
+		prevIndex = bitPosition >> WORDMASK;
+		alphabetChar.w = *(alphabet.p + (bitPosition>>prevIndex));
+	      }
               resultChar.w = (alphabetChar.w >> (~bitPosition&MPB) )&MODMASK;
 
-              //#ifdef Primitive_Extract_p
+              #ifdef Primitive_Extract_p
               printf("index:%d current:%x\n", index, ((*(key.p+wordIndex)>>modIndex)&MODMASK));
               printf("bitPosition:%d 0x%x alphabetChar:%x\n", bitPosition, bitPosition, alphabetChar.w);
               printf("resultChar:%x bitShift:%d\n", resultChar.w,(~bitPosition&MPB));
-              //#endif
+              #endif
 
               *(result.p+wordIndex) |= resultChar.w << modIndex;
               index++;
@@ -77,9 +85,10 @@ int main(void)
         }
 
 	extract(k1.p, k2.p, r.p);
-	uint8_t t1[8] = {0xc8, 0x9e, 0x2c, 0xde, 0x8a, 0x27, 0xe6, 0xd3};
-	uint8_t t2[8] = {0x1d, 0x9e, 0x35, 0x21, 0x9f, 0xa4, 0x41, 0xe5};
+	uint8_t t1[8] = { 0x3d, 0xfa, 0xc8, 0x9e, 0x47, 0x69, 0x2c, 0xde };
+	uint8_t t2[8] = { 0x43, 0x6d, 0x78, 0x55, 0x33, 0xea, 0x88, 0xfb };
 	uint8_t tr[8];
+
 	Extract(t1, t2, tr);	
 /*
 	Pointer R = AllocBytes(LENGTH);
