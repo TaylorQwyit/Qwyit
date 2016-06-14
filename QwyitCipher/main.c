@@ -9,8 +9,8 @@
 void extract(const void * k, const void * a, void *r)
 {
         //#ifdef Primitive_Extract_p
-        printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d WORDMASK:%d\n"
-	, MOD, MODMASK, MODPERBYTE, KEYMASK, WORDMASK);
+        printf("MOD:%d MODMASK:%x MODPERBYTE:%d KEYMASK:%d WORDMASK:%d MPB:%x\n"
+	, MOD, MODMASK, MODPERBYTE, KEYMASK, WORDMASK, MPB);
         //#endif
 
         ConstPointer key,alphabet;
@@ -29,12 +29,13 @@ void extract(const void * k, const void * a, void *r)
            *(result.p+wordIndex) = 0;
 
            int32_t modIndex = WORD - MOD;
+	   int32_t prevPosition = -1;
            for(modIndex; modIndex >= 0; modIndex -= MOD)
            {
               index = (index +  ((*(key.p+wordIndex)>>modIndex)&MODMASK)) & KEYMASK;
-              uint32_t bitPosition = index*MOD;
-              uint8_t alphabetChar = *(alphabet.p + (bitPosition>>3));
-              uint8_t resultChar = (alphabetChar >> (~bitPosition&MODPERBYTE) )&MODMASK;
+              int32_t bitPosition = index*MOD;
+              uint8_t alphabetChar = *(alphabet.p + (bitPosition>>WORDMASK));
+              uint8_t resultChar = (alphabetChar >> (~bitPosition&MPB) )&MODMASK;
 
               //#ifdef Primitive_Extract_p
               printf("index:%d current:%x\n", index, ((*(key.p+wordIndex)>>modIndex)&MODMASK));

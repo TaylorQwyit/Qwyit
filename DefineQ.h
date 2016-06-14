@@ -4,7 +4,7 @@
 #define LENGTH 8 //bytes
 
 #define WORD 8 //8,16,32, or 64 bits 
-#define MOD 4 //1,2,4, or 8 bits
+#define MOD 8 //1,2,4, or 8 bits
 #define TREE 8
 
 #define MESSAGESIZE 128 //in Bits
@@ -22,21 +22,33 @@
 #define WORDPERLENGTH (LENGTH / (WORD / 8))
 
 #define MODMASK ((1 << MOD)-1)
-#define KEYMASK ((LENGTH * 8/MOD)-1)
-#define WORD_MASK (1<<WORD)
+#define KEYMASK ((LENGTH * WORD/MOD)-1)
 
 #if MOD == 1
 	#define MODMASK_WORD 0x0000000000000000
 	#define MODPERBYTE 0x7
+	#define MOD_PER_BYTE 0x7F
 #elif MOD == 2
 	#define MODMASK_WORD 0x5555555555555555
 	#define MODPERBYTE 0x6
+	#define MOD_PER_BYTE 0x7E
 #elif MOD == 4
 	#define MODMASK_WORD 0x7777777777777777
 	#define MODPERBYTE 0x4	
+	#define MOD_PER_BYTE 0x7C
 #elif MOD == 8
 	#define MODMASK_WORD 0x7F7F7F7F7F7F7F7F
 	#define MODPERBYTE 0x0	
+	#define MOD_PER_BYTE 0x78
+#elif MOD == 16
+	#define MODMASK_WORD 0x7FFF7FFF7FFF7FFF
+	#define MOD_PER_BYTE 0x70
+#elif MOD == 32
+	#define MODMASK_WORD 0x7FFFFFFF7FFFFFFF
+	#define MOD_PER_BYTE 0x60
+#elif MOD == 64
+	#define MODMASK_WORD 0x7FFFFFFFFFFFFFFF
+	#define MOD_PER_BYTE 0x40
 #endif
 
 #if (WORD == 64)
@@ -60,6 +72,8 @@
  typedef struct{const uint8_t * p;}ConstPointer;
  typedef struct{uint8_t w;}Word;
 #endif
+
+#define MPB (((1 << WORDMASK) - 1) & MOD_PER_BYTE)
 
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)
