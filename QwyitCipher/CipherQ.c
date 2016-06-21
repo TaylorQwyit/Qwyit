@@ -85,6 +85,12 @@ void InitQstate(Qstate *s, uint32_t seed)
 	GetNonce(s->QK, 108);
 	GetNonce(s->orB, seed);
 
+        printf("Initial Values:\n");
+        PrintCharArray(s->EK, LENGTH);
+        PrintCharArray(s->QK, LENGTH);
+        PrintCharArray(s->orB, LENGTH);
+
+
 	Round(s->EK, s->QK, s->orB, s->wA, s->orA);
 	Round(s->EK, s->QK, s->orA, s->wB, s->orB);
 
