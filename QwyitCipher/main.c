@@ -12,21 +12,23 @@ int main(void)
 
         Pointer k1  =  AllocBytes(LENGTH);
         Pointer k2  =  AllocBytes(LENGTH);
-        Pointer r  =  AllocBytes(LENGTH);
+        Pointer r = AllocBytes(LENGTH);
+	//r.p = malloc(LENGTH*sizeof(uint8_t) );
+	Pointer t = AllocBytes(LENGTH);
 
         uint32_t i;
         srand(23);
-        for(i = 0; i < MESSAGESIZE*8/WORD; i+=1)
+        for(i = 0; i < LENGTH*8/WORD; i+=1)
         {
                 *(k1.p+i) = ((uint64_t)rand() << 32) | rand();
                 *(k2.p+i) = ((uint64_t)rand() << 32) | rand();
+                *(t.p+i) = 0;
         }
 
-	//Extract(k1.p, k2.p, r.p);
-
+	Extract(k1.p, k2.p, r.p);
 	Qstate s;
 	InitQstate(&s, 0);
-	//Iteration((&s);
+	Iteration(&s);
 
 /*	
 	Pointer R = AllocBytes(LENGTH);
