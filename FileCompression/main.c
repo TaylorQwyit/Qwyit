@@ -10,8 +10,7 @@
 
 uint32_t main(void)
 {
-	Pointer message;
-	message.p  =  MemAlloc(MESSAGESIZE);
+	Pointer message = AllocBytes(MESSAGESIZE);
 
 	uint32_t i;
 	srand(23);
@@ -25,6 +24,5 @@ uint32_t main(void)
 
 	printf("Compression:\n");
 
-	PrintArray(message.p, MESSAGESIZE);
 	CompressTree(message, MESSAGESIZE);
 }

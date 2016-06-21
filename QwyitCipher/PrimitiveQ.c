@@ -191,6 +191,11 @@ void Combine(const void * key1, const void * key2, void * a1, void * a2, void *r
         #endif
 }
 
+uint32_t Index(const void * alphabet)
+{
+	
+}
+
 void OneWayCut(const uint8_t * key1, const uint8_t * key2, uint8_t * result)
 {
 	//TODO implement OneWayCut	

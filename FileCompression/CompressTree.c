@@ -10,12 +10,16 @@
 uint8_t * CompressTree(Pointer m, const uint32_t m_len)
 {
 	PrintArray(m.p, m_len);
+
+	Qstate s;	
+	InitQstate(&s, 0);
 	
 	uint32_t bits = 0;
 	uint32_t i = 0;
 	for(i; i < m_len*8/WORD; i++)
 	{ 
 		uint8_t mapShift = 0;
+		Iteration(&s);
 		while(mapShift < 8)
 		{
 			if( (*(m.p+i) >> mapShift & 0x3) == 0)
