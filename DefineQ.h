@@ -1,16 +1,16 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 8 //bytes
+#define LENGTH 2 //bytes
 
 #define WORD 8 //8,16,32, or 64 bits 
 #define MOD 1 //1,2,4,8,16,32, or 64 bits
-#define TREE 8
+#define TREE 2
 
 #define MESSAGESIZE 32 //in Bytes
 
 //#define Round_p
-#define Iteration_p
+//#define Iteration_p
 
 //#define Primitive_p
 //#define Primitive_Extract_p
@@ -70,7 +70,7 @@
 #endif
 
 #define MODPERWORD (((1 << WORDMASK) - 1) & MPW)
-#define TREEMASK ((1 << WORDMASK) - 1)
+#define TREEMASK ((1 << TREE) - 1)
 
 #define MAPSIZE (BLOCKSIZE / 8)
 #define ITERATIONMASK ( (1 << ITERATIONSIZE) -1)

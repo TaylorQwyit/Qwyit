@@ -55,8 +55,8 @@ void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t 
         Extract(QK, A, Next_W);
 	ModEncrypt(Next_W, R, Next_OR);
 
-	//ModEncrypt(QK, OR, QK);
-	//ModEncrypt(EK, OR, EK);
+	ModEncrypt(QK, OR, QK);
+	ModEncrypt(EK, Next_OR, EK);
 	
 	#ifdef Round_p
         printf(" round NextOR:");
