@@ -26,7 +26,7 @@ uint32_t main(void)
 
 	uint32_t minCompress = 0 - 1;
 	uint32_t j = 0;
-	while(j < 1)
+	while(j < 10000)
 	{
 		uint32_t curCompress = CompressTree(message, MESSAGESIZE, j++);
 		if( minCompress > curCompress)
