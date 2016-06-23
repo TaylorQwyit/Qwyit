@@ -127,6 +127,15 @@ void CopyQstate(Qstate * state, Qstate * copy)
 	state->index = copy->index;
 }
 
+void FreeQstate(Qstate * state)
+{
+        free(state->orA);
+        free(state->orB);
+        free(state->wA);
+        free(state->wB);
+        free(state->EK);
+        free(state->QK);
+}
 
 void Iteration(Qstate *s)
 {

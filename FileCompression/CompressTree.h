@@ -2,6 +2,6 @@
 #define COMPRESSTREE_H_
 
 
-uint8_t * CompressTree(Pointer m, const uint32_t m_len);
+uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed);
 
 #endif

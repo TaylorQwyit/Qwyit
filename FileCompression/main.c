@@ -22,7 +22,17 @@ uint32_t main(void)
 	}
 
 
-	printf("Compression:\n");
+	printf("File Size:%d\n", MESSAGESIZE*8);
 
-	CompressTree(message, MESSAGESIZE);
+	uint32_t minCompress = 0 - 1;
+	uint32_t j = 0;
+	while(j < 1)
+	{
+		uint32_t curCompress = CompressTree(message, MESSAGESIZE, j++);
+		if( minCompress > curCompress)
+		{
+			minCompress = curCompress;
+			printf("New Low:%d - iteration:%d\n", minCompress, j);
+		}
+	}
 }

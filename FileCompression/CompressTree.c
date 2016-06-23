@@ -7,12 +7,11 @@
 
 #include <stdio.h>
 
-uint8_t * CompressTree(Pointer m, const uint32_t m_len)
+uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 {
-	PrintArray(m.p, m_len);
-	printf("Tree:%d TreeMask:%x\n",TREE, TREEMASK);
+	
 	Qstate s;	
-	InitQstate(&s, 0);
+	InitQstate(&s, seed);
 	
 	uint32_t bits = 0;
 	uint32_t bits2 = 0;
@@ -21,25 +20,33 @@ uint8_t * CompressTree(Pointer m, const uint32_t m_len)
 	{ 
 		
 		Iteration(&s);
-		uint32_t treeVal = 0;
+		uint32_t treeVal = *(*s.W1);
 		uint32_t j = 0;	
 		for(j; j < WORD; j+= TREE)
 		{
 			uint32_t x = *(m.p+i) & (TREEMASK << j);
-			printf("message:%x\n", x );
 			
+			#ifdef CompressTree_p
+			printf("message:%x\n", x );
+			#endif	
 			uint32_t bitsAdded = 0;
-			while( x != (treeVal ^ (bitsAdded++<<j) ) )
+			while( x != ((treeVal ^ (bitsAdded++<<j) ) & (TREEMASK << j)) )
 			{
+				
+				#ifdef CompressTree_p
 				printf("m:%x treeVal:%x\n", x, treeVal ^ (bitsAdded<<j));
+				#endif	
 			}
+			#ifdef CompressTree_p
 			printf("found:%x=%x with bits=%d\n", x, treeVal ^ (bitsAdded<<j), bitsAdded);
+			#endif	
+			
 			if(bitsAdded == 4)
 				bits2 += 3;
 			else
 				bits2 += bitsAdded;
 		}
-		
+	/*	
 		uint8_t mapShift = 0;
 		while(mapShift < 8)
 		{
@@ -53,8 +60,13 @@ uint8_t * CompressTree(Pointer m, const uint32_t m_len)
 				bits += 3;
 			mapShift += 2;
 		}
+	*/
 	}
-
+	#ifdef CompressTree_p
+	PrintArray(m.p, m_len);
+	printf("Tree:%d TreeMask:%x\n",TREE, TREEMASK);
 	printf("Size:%d compressed:%d, %d\n", m_len*8, bits, bits2);
-
+	#endif
+	FreeQstate(&s);
+	return bits2;
 }
