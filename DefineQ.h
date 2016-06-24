@@ -7,7 +7,7 @@
 #define MOD 2 //1,2,4,8,16,32, or 64 bits
 #define TREE 2
 
-#define MESSAGESIZE 16 //in Bytes
+#define MESSAGESIZE 4 //in Bytes
 
 //#define Round_p
 //#define Iteration_p

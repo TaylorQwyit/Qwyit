@@ -12,7 +12,7 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 	
 	Qstate s;	
 	InitQstate(&s, seed);
-	
+		
 	uint32_t bits = 0;
 	uint32_t bits2 = 0;
 	uint32_t i = 0;

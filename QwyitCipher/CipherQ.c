@@ -36,6 +36,16 @@ void GetNonce(uint8_t * nonce, const uint32_t seed)
         }
 }
 
+void InitOR(uint8_t * OR, const uint32_t value)
+{
+
+       	uint32_t i;
+        for(i = 0;i<LENGTH;i+=1)
+        {
+                OR[i] = (value >> (8*i) ) & 0xFF;
+        }
+
+}
 void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t * Next_OR)
 {
 	
@@ -83,8 +93,16 @@ void InitQstate(Qstate *s, uint32_t seed)
 
 	GetNonce(s->EK, 23);
 	GetNonce(s->QK, 108);
-	GetNonce(s->orB, seed);
-
+	InitOR(s->orB, seed);
+	#ifdef Iteration_p
+	printf("Init:\n");
+	printf("EK: ");
+	PrintCharArray(s->EK, LENGTH);
+	printf("QK: ");
+	PrintCharArray(s->QK, LENGTH);
+	printf("OR:");
+	PrintCharArray(s->orB, LENGTH);
+	#endif
 	Round(s->EK, s->QK, s->orB, s->wA, s->orA);
 	Round(s->EK, s->QK, s->orA, s->wB, s->orB);
 
