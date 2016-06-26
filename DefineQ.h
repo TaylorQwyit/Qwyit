@@ -3,11 +3,11 @@
 
 #define LENGTH 4 //bytes
 
-#define WORD 32 //8,16,32, or 64 bits 
+#define WORD 8 //8,16,32, or 64 bits 
 #define MOD 1 //1,2,4,8,16,32, or 64 bits
 #define TREE 8
 
-#define MESSAGESIZE 100  //in Bytes
+#define MESSAGESIZE 4  //in Bytes
 
 //#define Round_p
 //#define Iteration_p
@@ -15,7 +15,7 @@
 //#define Primitive_p
 //#define Primitive_Extract_p
 
-//#define CompressTree_p
+#define CompressTree_p
 
 //******** No Changes Below Here ********
 #include <stdint.h>

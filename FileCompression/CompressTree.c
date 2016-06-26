@@ -27,27 +27,42 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 			uint32_t x = *(m.p+i) & (TREEMASK << j);
 			
 			#ifdef CompressTree_p
-			printf("message:%x\n", x );
+			printf("m:%x q:%x\n", *(m.p+i) , treeVal);
 			#endif	
 			uint32_t bitsAdded = 0;
-			while( x != ((treeVal ^ (bitsAdded++<<j) ) & (TREEMASK << j)) )
+			while( x != ((treeVal ^ (bitsAdded<<j) ) & (TREEMASK << j)) )
 			{
-				
+				bitsAdded++;
 				#ifdef CompressTree_p
-				printf("m:%x treeVal:%x\n", x, treeVal ^ (bitsAdded<<j));
+				//printf("m:%x treeVal:%x\n", x, treeVal ^ (bitsAdded<<j));
 				#endif	
 			}
 			#ifdef CompressTree_p
-			printf("found:%x=%x with bits=%d\n", x, treeVal ^ (bitsAdded<<j), bitsAdded);
+			printf("found:%x=%x w/ bits=%d\n"
+			, x, (treeVal ^ (bitsAdded<<j) )&(TREEMASK << j), bitsAdded);
 			#endif	
 			
-			if(bitsAdded <= (1 << (TREE -1)) / 2)
+			if(bitsAdded < (1 << (TREE -1)) / 2)
+			{
+				#ifdef CompressTree_p
+                        	printf("bits:%d<%d, +%d\n", bitsAdded, (1 << (TREE -1)) / 2, TREE-1);
+                        	#endif
 				bits2 += TREE -1;
-			else if (bitsAdded <= (1 << (TREE-1)))
+			}
+			else if (bitsAdded < (1 << (TREE-1)))
+			{
+				#ifdef CompressTree_p
+                        	printf("bits:%d<%d, +%d\n", bitsAdded, (1 << (TREE -1)), TREE);
+                        	#endif
 				bits2 += TREE;
+			}
 			else
+			{	
+				#ifdef CompressTree_p
+                        	printf("bits:%d>%d, +%d\n", bitsAdded, (1 << (TREE -1)), TREE+1);
+                        	#endif
 				bits2 += TREE + 1;
-		
+			}
 
 		}
 	}
