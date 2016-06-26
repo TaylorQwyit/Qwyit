@@ -13,7 +13,7 @@ uint32_t main(void)
 	Pointer message = AllocBytes(MESSAGESIZE);
 
 	uint32_t i;
-	srand(24);
+	srand(108);
 	for(i = 0; i < MESSAGESIZE*8/WORD; i+=1)
 	{	
 		//*(message.p+i) = 0xff;
@@ -25,7 +25,7 @@ uint32_t main(void)
 
 	uint32_t minCompress = 0 - 1;
 	uint32_t j = 0;
-	while(j < 1)
+	while(j < 65556)
 	{
 		uint32_t curCompress = CompressTree(message, MESSAGESIZE, j++);
 		if( minCompress > curCompress)
@@ -33,6 +33,8 @@ uint32_t main(void)
 			minCompress = curCompress;
 			printf("New Low:%d - iteration:%d\n", minCompress, j);
 		}
+		if(j % 1000 == 0)
+			printf("i:%d\n", j);
 	}
 
 	

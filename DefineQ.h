@@ -1,13 +1,13 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 4 //bytes
+#define LENGTH 2 //bytes
 
-#define WORD 8 //8,16,32, or 64 bits 
+#define WORD 16 //8,16,32, or 64 bits 
 #define MOD 1 //1,2,4,8,16,32, or 64 bits
-#define TREE 8
+#define TREE 16
 
-#define MESSAGESIZE 4  //in Bytes
+#define MESSAGESIZE 128  //in Bytes
 
 //#define Round_p
 //#define Iteration_p
@@ -15,7 +15,7 @@
 //#define Primitive_p
 //#define Primitive_Extract_p
 
-#define CompressTree_p
+//#define CompressTree_p
 
 //******** No Changes Below Here ********
 #include <stdint.h>
