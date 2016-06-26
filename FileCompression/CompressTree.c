@@ -20,7 +20,7 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 	{ 
 		
 		Iteration(&s);
-		uint64_t treeVal = *(uint16_t *)(*s.W1);
+		uint64_t treeVal = *(uint32_t *)(*s.W1);
 		uint32_t j = 0;	
 		for(j; j < WORD; j+= TREE)
 		{
@@ -29,7 +29,7 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 			#ifdef CompressTree_p
 			printf("m:%x q:%x\n", *(m.p+i) , treeVal);
 			#endif	
-			uint32_t bitsAdded = 0;
+			uint64_t bitsAdded = 0;
 			while( x != ((treeVal ^ (bitsAdded<<j) ) & (TREEMASK << j)) )
 			{
 				bitsAdded++;

@@ -13,7 +13,7 @@ uint32_t main(void)
 	Pointer message = AllocBytes(MESSAGESIZE);
 
 	uint32_t i;
-	srand(108);
+	srand(24);
 	for(i = 0; i < MESSAGESIZE*8/WORD; i+=1)
 	{	
 		//*(message.p+i) = 0xff;
