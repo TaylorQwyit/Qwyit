@@ -13,7 +13,7 @@ uint32_t main(void)
 	Pointer message = AllocBytes(MESSAGESIZE);
 
 	uint32_t i;
-	srand(108);
+	srand(103);
 	for(i = 0; i < MESSAGESIZE*8/WORD; i+=1)
 	{	
 		//*(message.p+i) = 0xff;
@@ -21,11 +21,11 @@ uint32_t main(void)
 		*(message.p+i) = ((uint64_t)rand() << 32) | rand();
 	}
 
-
+	
 
 	uint32_t minCompress = 0 - 1;
 	uint32_t j = 0;
-	while(j < 256)
+	while(j < 655536)
 	{
 		uint32_t curCompress = CompressTree(message, MESSAGESIZE, j++);
 		if( minCompress > curCompress)
@@ -37,4 +37,5 @@ uint32_t main(void)
 
 	
 	printf("File Size:%d saved:%d\n", MESSAGESIZE*8, MESSAGESIZE*8 - minCompress);
+	PrintArray(message.p, MESSAGESIZE);
 }

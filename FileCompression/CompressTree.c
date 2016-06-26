@@ -41,26 +41,15 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 			printf("found:%x=%x with bits=%d\n", x, treeVal ^ (bitsAdded<<j), bitsAdded);
 			#endif	
 			
-			if(bitsAdded == 4)
-				bits2 += 3;
+			if(bitsAdded <= (1 << (TREE -1)) / 2)
+				bits2 += TREE -1;
+			else if (bitsAdded <= (1 << (TREE-1)))
+				bits2 += TREE;
 			else
-				bits2 += bitsAdded;
+				bits2 += TREE + 1;
+		
+
 		}
-	/*	
-		uint8_t mapShift = 0;
-		while(mapShift < 8)
-		{
-			if( (*(m.p+i) >> mapShift & 0x3) == 0)
-				bits += 1;
-			else if( (*(m.p+i)  >> mapShift & 0x3) == 1)
-				bits += 2;
-			else if( (*(m.p+i)  >> mapShift & 0x3) == 2)
-				bits += 3;
-			else //if(m[i] & mapMask == 2)
-				bits += 3;
-			mapShift += 2;
-		}
-	*/
 	}
 	#ifdef CompressTree_p
 	PrintArray(m.p, m_len);
