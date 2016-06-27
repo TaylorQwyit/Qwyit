@@ -5,9 +5,9 @@
 
 #define WORD 16 //8,16,32, or 64 bits 
 #define MOD 1 //1,2,4,8,16,32, or 64 bits
-#define TREE 16
+#define TREE 2
 
-#define MESSAGESIZE 8  //in Bytes
+#define MESSAGESIZE 2  //in Bytes
 
 //#define Round_p
 //#define Iteration_p
