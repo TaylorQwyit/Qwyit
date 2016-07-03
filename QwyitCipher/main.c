@@ -23,7 +23,7 @@ int main(void)
 	while(i++ < 5)
 	{
 		Iteration(&s);
-		PrintArray(*s.W1, LENGTH);
+		//PrintArray((*s.W1).p, LENGTH);
 	}
 
 }

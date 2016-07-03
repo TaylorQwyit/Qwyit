@@ -3,18 +3,20 @@
 
 typedef struct
 {
-        void * orA;
-        void * orB;
-        void * wA;
-        void * wB;
+	Pointer x;
 
-        void * EK;
-        void * QK;
+        Pointer orA;
+        Pointer orB;
+        Pointer wA;
+        Pointer wB;
 
-        void ** OR2;
-        void ** OR3;
-        void ** W1;
-        void ** W2;
+        Pointer EK;
+        Pointer QK;
+
+        Pointer * OR2;
+        Pointer * OR3;
+        Pointer * W1;
+        Pointer * W2;
 
         uint16_t index;
         uint32_t iteration;
@@ -22,7 +24,7 @@ typedef struct
 
 
 
-void GetNonce(uint8_t * nonce, const uint32_t seed);
+void GetNonce(void * nonce, const uint32_t seed);
 
 void InitQstate(Qstate *s, uint32_t seed);
 void NewQstate(Qstate * state);

@@ -10,7 +10,7 @@
 #define MESSAGESIZE 2  //in Bytes
 
 //#define Round_p
-//#define Iteration_p
+#define Iteration_p
 
 //#define Primitive_p
 //#define Primitive_Extract_p
