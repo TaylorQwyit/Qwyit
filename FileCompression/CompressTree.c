@@ -25,13 +25,13 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 		uint64_t j = 0;	
 		for(j; j < WORD; j+= TREE)
 		{
-			uint64_t x = *(m.p+i) & (TREEMASK << j);
+			//uint64_t x = *(m.p+i) & (TREEMASK << j);
 			//uint64_t x = *(m.p+i) & 0xFFFFFFFF;
 			
 			#ifdef CompressTree_p
 			printf("m:%x q:%lx\n", *(m.p+i) , treeVal);
 			#endif	
-			uint64_t bitsAdded = ((*(m.p+i) ^ treeVal) >> j ) & TREEMASK;
+			uint64_t bitsAdded = ((*(m.p+i) ^ treeVal) >> j ) & 0xFFFFFFFF;
 			//while( x != (treeVal ^ (bitsAdded<<j) ) & 0xFFFFFFFF )
 			//TODO fix the while loop to use subtraction instead
 			//while( x != ((treeVal ^ (bitsAdded<<j) ) & (TREEMASK << j)) )
@@ -42,28 +42,29 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 				#endif	
 			}
 			#ifdef CompressTree_p
-			printf("found:%lx=%lx w/ bits=%ld\n"
-			, x, (treeVal ^ (bitsAdded<<j) )&(TREEMASK << j), bitsAdded);
+			printf("found:%x=%lx w/ bits=%ld\n",*(m.p+i), treeVal, bitsAdded);
 			#endif	
-			
-			if(bitsAdded < (1 << (TREE -1)) / 2)
+			Word limit;
+			limit.w = (1 << (TREE-1));
+				
+			if(bitsAdded < limit.w / 2)
 			{
 				#ifdef CompressTree_p
-                        	printf("bits:%ld<%d, +%d\n", bitsAdded, (1 << (TREE -1)) / 2, TREE-1);
+                        	printf("bits:%ld<%u, +%d\n", bitsAdded, limit.w/2, TREE-1);
                         	#endif
 				bits2 += TREE -1;
 			}
-			else if (bitsAdded < (1 << (TREE-1)))
+			else if (bitsAdded < limit.w)
 			{
 				#ifdef CompressTree_p
-                        	printf("bits:%ld<%d, +%d\n", bitsAdded, (1 << (TREE -1)), TREE);
+                        	printf("bits:%ld<%u, +%d\n", bitsAdded, limit.w, TREE);
                         	#endif
 				bits2 += TREE;
 			}
 			else
 			{	
 				#ifdef CompressTree_p
-                        	printf("bits:%ld>%d, +%d\n", bitsAdded, (1 << (TREE -1)), TREE+1);
+                        	printf("bits:%ld>%u, +%d\n", bitsAdded, limit.w, TREE+1);
                         	#endif
 				bits2 += TREE + 1;
 			}
