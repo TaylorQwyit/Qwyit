@@ -32,6 +32,7 @@ uint32_t CompressTree(Pointer m, const uint32_t m_len, const uint32_t seed)
 			#endif	
 			uint64_t bitsAdded = 0;
 			//while( x != (treeVal ^ (bitsAdded<<j) ) & 0xFFFFFFFF )
+			//TODO fix the while loop to use subtraction instead
 			while( x != ((treeVal ^ (bitsAdded<<j) ) & (TREEMASK << j)) )
 			{
 				bitsAdded++;
