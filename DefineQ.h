@@ -1,9 +1,9 @@
 #ifndef DEFINEQ_H_
 #define DEFINEQ_H_
 
-#define LENGTH 2 //bytes
+#define LENGTH 8 //bytes
 
-#define WORD 16 //8,16,32, or 64 bits 
+#define WORD 64 //8,16,32, or 64 bits 
 #define MOD 1 //1,2,4,8,16,32, or 64 bits
 #define TREE 2
 

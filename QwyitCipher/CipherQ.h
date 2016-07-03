@@ -3,21 +3,21 @@
 
 typedef struct
 {
-        uint8_t * orA;
-        uint8_t * orB;
-        uint8_t * wA;
-        uint8_t * wB;
+        void * orA;
+        void * orB;
+        void * wA;
+        void * wB;
 
-        uint8_t * EK;
-        uint8_t * QK;
+        void * EK;
+        void * QK;
 
-        uint8_t ** OR2;
-        uint8_t ** OR3;
-        uint8_t ** W1;
-        uint8_t ** W2;
+        void ** OR2;
+        void ** OR3;
+        void ** W1;
+        void ** W2;
 
         uint16_t index;
-        uint16_t iteration;
+        uint32_t iteration;
 } Qstate;
 
 

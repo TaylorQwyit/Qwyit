@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 
-
+/*
 Pointer MemoryAlloc(const uint32_t charSize)
 {
 	Pointer memPointer;
@@ -23,7 +23,7 @@ Pointer MemoryAlloc(const uint32_t charSize)
 	#endif
 	return memPointer;
 }
-
+*/
 
 void GetNonce(uint8_t * nonce, const uint32_t seed)
 {
@@ -46,7 +46,7 @@ void InitOR(uint8_t * OR, const uint32_t value)
         }
 
 }
-void Round(uint8_t * EK, uint8_t * QK, uint8_t * OR, uint8_t * Next_W,  uint8_t * Next_OR)
+void Round(void * EK, void * QK, void * OR, void * Next_W,  void * Next_OR)
 {
 	
         uint8_t * A  =  (uint8_t *)malloc(sizeof(uint8_t)*LENGTH);

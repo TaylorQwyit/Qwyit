@@ -20,7 +20,7 @@ int main(void)
         
 	Qstate s;
 	InitQstate(&s, 0);
-	while(i++ < 100)
+	while(i++ < 5)
 	{
 		Iteration(&s);
 		PrintArray(*s.W1, LENGTH);
