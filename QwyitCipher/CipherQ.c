@@ -58,7 +58,7 @@ void Round(void * EK, void * QK, void * OR, void * Next_W,  void * Next_OR)
 
 	#ifdef Round_p
         printf("Round      OR:");
-        PrintCharArray(OR, LENGTH);
+        PrintArray(OR, LENGTH);
 	#endif
 
 
@@ -72,9 +72,9 @@ void Round(void * EK, void * QK, void * OR, void * Next_W,  void * Next_OR)
 	
 	#ifdef Round_p
         printf(" round NextOR:");
-        PrintCharArray(Next_OR, LENGTH);
+        PrintArray(Next_OR, LENGTH);
         printf(" round      W:");
-        PrintCharArray(Next_W, LENGTH);
+        PrintArray(Next_W, LENGTH);
 	#endif
 
 	free(A.p);
@@ -97,6 +97,7 @@ void InitQstate(Qstate *s, uint32_t seed)
 	GetNonce(s->EK.p, 23);
 	GetNonce(s->QK.p, 108);
 	InitOR(s->orB.p, seed);
+
 	#ifdef Iteration_p
 	printf("Init:\n");
 	printf("EK: ");
@@ -116,7 +117,20 @@ void InitQstate(Qstate *s, uint32_t seed)
 	s->W2 = &(s->wB);
 
 	s->index = 0;	
-	s->iteration = 0;	
+	s->iteration = 0;
+
+	#ifdef Iteration_p
+        printf("Iteration:%d\n", s->iteration);
+        printf("W1: ");
+        PrintArray(  (*s->W1).p, LENGTH);
+        printf("W2: ");
+        PrintArray(  (*s->W2).p, LENGTH);
+        printf("OR2:");
+        PrintArray( (*s->OR2).p, LENGTH);
+        printf("OR3:");
+        PrintArray(  (*s->OR3).p, LENGTH);
+        #endif
+	
 }
 
 /*

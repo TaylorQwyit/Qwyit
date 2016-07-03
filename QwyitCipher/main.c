@@ -19,7 +19,7 @@ int main(void)
         uint32_t i;
         
 	Qstate s;
-	InitQstate(&s, 0);
+	InitQstate(&s, 50);
 	while(i++ < 5)
 	{
 		Iteration(&s);
