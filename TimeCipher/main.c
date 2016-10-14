@@ -21,5 +21,7 @@ uint32_t main(void)
                 *(message.p+i) = ((uint64_t)rand() << 32) | rand();
         }
 	
-	Pointer ct = Encrypt(message, MESSAGESIZE, 0);	
+	Pointer ct = Encrypt(message, MESSAGESIZE, rand());
+
+	PrintArray(ct.p, MESSAGESIZE*2);	
 }
